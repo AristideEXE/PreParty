@@ -2,3 +2,101 @@
 @model PreParty.Pages.CreationFeteModel
 @{
 }
+
+<div class="text-center">
+    <h1 class="display-4">Créez votre fête !</h1>
+    <p>Renseignez les informations nécessaires et invitez vos amis</p>
+</div>
+
+<div class="container-fluid">
+    <form>
+    <div class="row">
+        <!--Formulaire des informations principales de la fête : -->
+        <div class="col-md">
+                
+                <div class="p-4 shadow rounded">
+                    <div class="form-group">
+                        <label for="inputNom">Nom de la fête :</label>
+                        <input type="text" class="form-control" id="inputNom" placeholder="Entrez un nom">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputAdresse">Ajouter une adresse</label>
+                                <input type="text" class="form-control" id="inputAdresse" placeholder="Adresse">
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputGPS">Coordonnées GPS :</label>
+                                <input type="text" class="form-control" id="inputGPS" placeholder="Coordonnées GPS">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputDate">Date</label>
+                                <input type="date" class="form-control" id="inputDate">
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputHeureDebut">Heure de début :</label>
+                                <input type="time" class="form-control" id="inputHeureDebut">
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputHeureFin">Heure de fin :</label>
+                                <input type="time" class="form-control" id="inputHeureFin">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescritpion">Ajouter une descritpion : </label>
+                        <input type="text" class="form-control" id="inputDescritpion" placeholder="Entrez une description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPrix">Prix d'entrée: </label>
+                        <input type="number" class="form-control" id="inputPrix" placeholder="Entrez une description" min="0">
+                    </div>
+
+                </div>
+                
+        </div>
+
+        <!--Ajouter les invités -->
+        <div class="col-md">
+            <div class="p-4 shadow rounded">
+                    <h2>Invités</h2>
+                <div class="bg-light rounded p-2">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
+                        Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
+                        ut, hendrerit rhoncus tellus. In viverra nisl at ligula laoreet, non congue sem consequat. Donec a sem
+                        ullamcorper, imperdiet dolor non, scelerisque justo. Nulla pellentesque neque libero, ut egestas sem
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>

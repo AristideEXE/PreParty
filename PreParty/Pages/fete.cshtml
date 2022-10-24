@@ -2,48 +2,73 @@
 @model PreParty.Pages.feteModel
 @{
     <div class="row">
-            <div class="col-md">
-                <div class="p-4 shadow rounded">
-                    <h1>Ma super fête</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque. 
-                        Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl 
-                        ut, hendrerit rhoncus tellus. In viverra nisl at ligula laoreet, non congue sem consequat. Donec a sem 
-                        ullamcorper, imperdiet dolor non, scelerisque justo. Nulla pellentesque neque libero, ut egestas sem
-                    </p>
-                </div>
-                <br/>
-                <div class="p-4 shadow rounded">
-                    <p>Lieu : salle des fêtes de Trouville</p>
-                    <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=7.379143238067628%2C43.77662132692127%2C7.384936809539796%2C43.779948431928254&amp;layer=mapnik&amp;marker=43.77828683918161%2C7.382040023803711"></iframe>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="p-4 shadow rounded">
-                    <h2>Invités</h2>
-                    @for (int i = 0; i < 5; i++){
-                        <div class="row">
-                            <div class="col">PFP</div>
-                            <div class="col-6">Simon Robinet</div>
-                            <div class="col"><a href="#">Supprimer</a></div>
+                <div class="col-md">
+                    <div class="p-4 shadow rounded">
+                        <h1>Ma super fête</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque. 
+                            Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl 
+                            ut, hendrerit rhoncus tellus. In viverra nisl at ligula laoreet, non congue sem consequat. Donec a sem 
+                            ullamcorper, imperdiet dolor non, scelerisque justo. Nulla pellentesque neque libero, ut egestas sem
+                        </p>
+                    </div>
+                    <div class="p-4 shadow rounded">
+                        <h2>Date : 19/11/2022</h2>
+                        <div class="row p-2">
+                            <div class="col">
+                                <h3>Début</h3>
+                                <p>19 h 00</p>
+                            </div>
+                            <div class="col">
+                                <h3>Fin</h3>
+                                <p>01 h 00</p>
+                            </div>
                         </div>
-                }
+                    </div>
+                    <div class="p-4 shadow rounded">
+                        <p>Lieu : salle des fêtes de Trouville (sonner à la porte de derrière)</p>
+                        <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=7.379143238067628%2C43.77662132692127%2C7.384936809539796%2C43.779948431928254&amp;layer=mapnik&amp;marker=43.77828683918161%2C7.382040023803711"></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md">
-                <div class="p-4 shadow rounded">
-                    <h2>Posts</h2>
-                    @for (int i = 1; i < 4; i++){
-                        <div class="bg-secondary rounded p-2 m-2">
-                            <h3>Post numéro @i</h3>
-                            <p>19/11/2004</p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
-                                Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
-                            </p>
-                        </div>
+
+
+
+                <div class="col-md">
+                    <div class="p-4 shadow rounded">
+                        <h2>Invités</h2>
+                        @for (int i = 0; i < 5; i++){
+                            <div class="row bg-light rounded my-1 p-2 invite">
+                                <div class="col">PFP</div>
+                                <div class="col">Simon Robinet</div>
+                                <div class="col"><a href="#" class="btn btn-primary">Supprimer</a></div>
+                            </div>
                     }
+                    </div>
+                    <div class="p-4 shadow rounded">
+                        <h2>Budget par personne</h2>
+                        <p>17, 5 €</p>
+                        <a href="#" class="btn btn-primary">Voir les dépenses</a>
+                        <a href="#" class="btn btn-primary">Modifier</a>
+                    </div>
                 </div>
-            </div>
+
+
+
+
+                <div class="col-md">
+                    <div class="p-4 shadow rounded">
+                        <h2>Posts</h2>
+                        @for (int i = 1; i < 4; i++){
+                            <div class="bg-light rounded p-2 my-3">
+                                <h3>Post numéro @i</h3>
+                                <p>24/10/2022</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
+                                    Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
+                                </p>
+                            </div>
+                    }
+                    </div>
+                </div>
     </div>
 }

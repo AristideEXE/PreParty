@@ -12,7 +12,7 @@
     <form>
     <div class="row">
         <!--Formulaire des informations principales de la fête : -->
-        <div class="col-md">
+        <div class="col-md-6">
                 
                 <div class="p-4 shadow rounded">
                     <div class="form-group">
@@ -67,25 +67,35 @@
 
                     <div class="form-group">
                         <label for="inputPrix">Prix d'entrée: </label>
-                        <input type="number" class="form-control" id="inputPrix" placeholder="Entrez une description" min="0">
+                        <input type="number" class="form-control" id="inputPrix" aria-describedby="numberHelp" placeholder="Entrez une description" min="0">
+                        <small id="numberHelp" class="form-text text-muted">Prix en €.</small>
                     </div>
+
+                    <br />
 
                 </div>
                 
         </div>
 
         <!--Ajouter les invités -->
-        <div class="col-md">
+        <div class="col-md-6">
             <div class="p-4 shadow rounded">
-                    <h2>Invités</h2>
-                <div class="bg-light rounded p-2">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
-                        Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
-                        ut, hendrerit rhoncus tellus. In viverra nisl at ligula laoreet, non congue sem consequat. Donec a sem
-                        ullamcorper, imperdiet dolor non, scelerisque justo. Nulla pellentesque neque libero, ut egestas sem
-                    </p>
-                </div>
+                    <h2>
+                        Invités
+                        <a href="#">
+                            <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
+                        </a>
+                    </h2>
+                    <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
+                        @for (int i = 0; i < 20; i++)
+                        {
+                            <div class="row bg-light rounded my-1 p-2 invite">
+                                <div class="col">PFP</div>
+                                <div class="col">Simon Robinet</div>
+                                <div class="col"><a href="#" class="btn btn-primary">Supprimer</a></div>
+                            </div>
+                        }
+                    </div>
             </div>
         </div>
         

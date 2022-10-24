@@ -14,7 +14,7 @@
 
         <div class="row justify-content-start">
             <div class="col-md-5">
-                <h2>Formulaire d'inscription :</h2>
+                <h2 class="formTitre">Formulaire d'inscription :</h2>
             </div>
         </div>
         <br />
@@ -23,7 +23,7 @@
                 <form>
 
                     <div class="form-group row">
-                        <label for="inputNom" class="col-md-3 col-form-label">*Nom :</label>
+                        <label for="inputNom" class="col-md-3 col-form-label"><span class="rouge">*</span>Nom :</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control" id="inputNom" placeholder="Entrez votre nom" required>
                         </div>
@@ -32,7 +32,7 @@
                     <br />
 
                     <div class="form-group row">
-                        <label for="inputPrenom" class="col-md-3 col-form-label">*Prénom :</label>
+                        <label for="inputPrenom" class="col-md-3 col-form-label"><span class="rouge">*</span>Prénom :</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control" id="inputPrenom" placeholder="Entrez votre Prénom" required>
                         </div>
@@ -41,7 +41,7 @@
                     <br />
 
                     <div class="form-group row">
-                        <label for="inputDateNaissance" class="col-md-3 col-form-label">*Date de naissance :</label>
+                        <label for="inputDateNaissance" class="col-md-3 col-form-label"><span class="rouge">*</span>Date de naissance :</label>
                         <div class="col-md-8">
                             <input type="date" class="form-control" id="inputDateNaissance" required>
                         </div>
@@ -50,7 +50,7 @@
                     <br />
 
                     <div class="form-group row">
-                        <label for="inputMail" class="col-md-3 col-form-label">*Adresse mail :</label>
+                        <label for="inputMail" class="col-md-3 col-form-label"><span class="rouge">*</span>Adresse mail :</label>
                         <div class="col-md-8">
                             <input type="email" class="form-control" id="inputMail" placeholder="Entrez votre adresse mail" required>
                         </div>
@@ -59,7 +59,7 @@
                     <br />
 
                     <div class="form-group row">
-                        <label for="inputMdp" class="col-md-3 col-form-label">*Mot de passe :</label>
+                        <label for="inputMdp" class="col-md-3 col-form-label"><span class="rouge">*</span>Mot de passe :</label>
                         <div class="col-md-8">
                             <input type="password" class="form-control" id="inputMdp" placeholder="Mot de passe" required>
                         </div>
@@ -68,7 +68,7 @@
                     <br />
 
                     <div class="form-group row">
-                        <label for="inputMdpConfirm" class="col-md-3 col-form-label">*Confirmation du mot de passe :</label>
+                        <label for="inputMdpConfirm" class="col-md-3 col-form-label"><span class="rouge">*</span>Confirmation du mot de passe :</label>
                         <div class="col-md-8">
                             <input type="password" class="form-control" id="inputMdpConfirm" placeholder="Confirmez votre mot de passe" required>
                         </div>
@@ -78,7 +78,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-1">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Valider</button>
+                                <button type="submit"><span>Valider</span></button>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
         <br />
         <div class="row justify-content-center">
             <div class="col-md">
-                <p>
+                <p class="champsObligatoires">
                     * Champs obligatoires :
                 </p>
             </div>

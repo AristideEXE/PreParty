@@ -1,4 +1,4 @@
-﻿DROP SCHEMA IF EXISTS preparty;
+﻿DROP SCHEMA IF EXISTS preparty ;
 CREATE SCHEMA preparty;
 use preparty;
 
@@ -17,7 +17,7 @@ INSERT INTO utilisateur VALUES (1,'Proriol', 'Aristide', '2004-11-19', 'aristide
 
 CREATE TABLE fete(
 	idFete int primary key auto_increment,
-	idUtilisateur int,
+	idUtilisateur int not null,
 	nom varchar(255),
 	description text,
 	lieu varchar(255),
@@ -27,5 +27,23 @@ CREATE TABLE fete(
 	heureFin time,
 	foreign key (idUtilisateur) references utilisateur(idUtilisateur)
 );
+
+CREATE TABLE Depense(
+   idDepense int,
+   nomDepense varchar(50),
+   prix decimal(15,2),
+   idFete int NOT NULL,
+   PRIMARY KEY(idDepense),
+   FOREIGN KEY(idFete) REFERENCES fete(idFete)
+);
+
+CREATE TABLE Participe(
+   id_utilisateur INT,
+   idFete INT,
+   PRIMARY KEY(id_utilisateur, idFete),
+   FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+   FOREIGN KEY(idFete) REFERENCES fete(idFete)
+);
+
 
 insert into fete values (1,1, 'Anniversaire toto', 'Venez à ma superbe fête d''anniversaire ça va être génial', '78 boulevard de Strasbourg', '107.0.0.1', '2022-11-19', '19:00', '01:00');

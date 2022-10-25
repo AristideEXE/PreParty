@@ -1,5 +1,5 @@
 ﻿@page
-@model PreParty.Pages.feteModel
+@model PreParty.Pages.FeteModel
 @{
     ViewData["Title"] = "Fête";
     <div class="row">
@@ -34,10 +34,11 @@
                     Invités
                     <a href="#">
                         <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
-                        </a>
+                    </a>
                 </h2>
                 <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
-                    @for (int i = 0; i < 20; i++){
+                    @for (int i = 0; i < 20; i++)
+                    {
                         <div class="row bg-light rounded my-1 p-2 invite">
                             <div class="col">PFP</div>
                             <div class="col">Simon Robinet</div>
@@ -61,7 +62,8 @@
             <div class="p-4 shadow rounded">
                 <h2>Posts</h2>
                 <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
-                    @for (int i = 1; i < 4; i++){
+                    @for (int i = 1; i < 4; i++)
+                    {
                         <div class="bg-light rounded p-3 my-3">
                             <h3>Post numéro @i</h3>
                             <p>24/10/2022</p>
@@ -70,7 +72,7 @@
                                 Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
                             </p>
                         </div>
-                }
+                    }
                 </div>
             </div>
         </div>

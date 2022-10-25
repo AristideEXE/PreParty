@@ -6,7 +6,7 @@ using System.Runtime.Intrinsics.Arm;
 
 namespace PreParty.Pages
 {
-    public class feteModel : PageModel
+    public class FeteModel : PageModel
     {
         private Fete fete;
         public Fete Fete

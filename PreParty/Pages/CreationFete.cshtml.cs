@@ -38,6 +38,8 @@ namespace PreParty.Pages
             Console.WriteLine(hFin);
             Console.WriteLine(description);  //description not null àvérifier
             Console.WriteLine(prix);
+
+
         }
     }
 }

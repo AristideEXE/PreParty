@@ -39,7 +39,17 @@ namespace PreParty.Pages
             Console.WriteLine(description);  //description not null àvérifier
             Console.WriteLine(prix);
 
+            if (gps != null)
+            {
+                //To do
+            }
 
+            if (description != null)
+            {
+                //To do
+            }
+
+            //Insert les données
         }
     }
 }

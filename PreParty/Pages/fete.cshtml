@@ -5,16 +5,11 @@
     <div class="row">
                         <div class="col-md">
                             <div class="p-4 shadow rounded">
-                                <h1>@Model.Aristide.Nom</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque. 
-                                    Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl 
-                                    ut, hendrerit rhoncus tellus. In viverra nisl at ligula laoreet, non congue sem consequat. Donec a sem 
-                                    ullamcorper, imperdiet dolor non, scelerisque justo. Nulla pellentesque neque libero, ut egestas sem
-                                </p>
+                                <h1>@Model.Fete.Nom</h1>
+                                <p>@Model.Fete.Description</p>
                             </div>
                             <div class="p-4 shadow rounded">
-                                <h2>Date : 19/11/2022</h2>
+                                <h2>Date : @Model.Fete.dateDebut</h2>
                                 <div class="row p-2">
                                     <div class="col">
                                         <h3>Début</h3>
@@ -27,7 +22,7 @@
                                 </div>
                             </div>
                             <div class="p-4 shadow rounded">
-                                <p>Lieu : salle des fêtes de Trouville (sonner à la porte de derrière)</p>
+                                <p>@Model.Fete.Lieu</p>
                                 <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=7.379143238067628%2C43.77662132692127%2C7.384936809539796%2C43.779948431928254&amp;layer=mapnik&amp;marker=43.77828683918161%2C7.382040023803711"></iframe>
                             </div>
                         </div>

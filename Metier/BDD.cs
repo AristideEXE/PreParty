@@ -10,7 +10,7 @@ namespace Metier
     public class BDD
     {
         private static BDD instance;
-        public static BDD Instance
+        private static BDD Instance
         {
             get
             {
@@ -22,21 +22,19 @@ namespace Metier
             }
         }
 
-        public BDD(){
-            this.server = "localhost";
-            this.user = "root";
-            this.database = "preparty";
-            this.connexion = new MySqlConnection("server=" + server + ";user id=" + user + ";database=" + database + ";");
-        }
-
-        private string server;
-        private string user;
-        private string database;
-
+        private string connexionString;
         private MySqlConnection connexion;
+
+        public BDD(){
+            string server = "localhost";
+            string user = "root";
+            string database = "preparty";
+            this.connexionString = "server=" + server + ";user id=" + user + ";database=" + database + ";";
+        }
 
         public static void Open()
         {
+            Instance.connexion = new MySqlConnection(Instance.connexionString);
             Instance.connexion.Open();
         }
 

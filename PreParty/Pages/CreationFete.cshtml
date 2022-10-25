@@ -9,7 +9,7 @@
 </div>
 
 <div class="container-fluid">
-    <form>
+    <form method="post">
     <div class="row">
         <!--Formulaire des informations principales de la fête : -->
         <div class="col-md-6">
@@ -17,21 +17,21 @@
                 <div class="p-4 shadow rounded">
                     <div class="form-group">
                         <label for="inputNom">Nom de la fête :</label>
-                        <input type="text" class="form-control" id="inputNom" placeholder="Entrez un nom">
+                        <input type="text" class="form-control" name="_nom_fete" id="inputNom" placeholder="Entrez un nom" required>
                     </div>
 
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputAdresse">Ajouter une adresse</label>
-                                <input type="text" class="form-control" id="inputAdresse" placeholder="Adresse">
+                                <input type="text" class="form-control" id="inputAdresse" name="_adresse" placeholder="Adresse" required>
                             </div>
                         </div>
 
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputGPS">Coordonnées GPS :</label>
-                                <input type="text" class="form-control" id="inputGPS" placeholder="Coordonnées GPS">
+                                <input type="text" class="form-control" id="inputGPS" placeholder="Coordonnées GPS" name="_gps">
                             </div>
                         </div>
                     </div>
@@ -40,21 +40,21 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputDate">Date</label>
-                                <input type="date" class="form-control" id="inputDate">
+                                <input type="date" class="form-control" id="inputDate" min="@Model.Date" required name="_date">
                             </div>
                         </div>
 
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputHeureDebut">Heure de début :</label>
-                                <input type="time" class="form-control" id="inputHeureDebut">
+                                <input type="time" class="form-control" id="inputHeureDebut" required name="_hdebut">
                             </div>
                         </div>
 
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputHeureFin">Heure de fin :</label>
-                                <input type="time" class="form-control" id="inputHeureFin">
+                                <input type="time" class="form-control" id="inputHeureFin" required name="_hfin">
                             </div>
                         </div>
 
@@ -62,12 +62,12 @@
 
                     <div class="form-group">
                         <label for="inputDescritpion">Ajouter une descritpion : </label>
-                        <input type="text" class="form-control" id="inputDescritpion" placeholder="Entrez une description">
+                        <input type="text" class="form-control" id="inputDescritpion" placeholder="Entrez une description" name="_description">
                     </div>
 
                     <div class="form-group">
                         <label for="inputPrix">Prix d'entrée: </label>
-                        <input type="number" class="form-control" id="inputPrix" aria-describedby="numberHelp" placeholder="Entrez un prix" min="0">
+                        <input type="number" class="form-control" id="inputPrix" aria-describedby="numberHelp" placeholder="Entrez un prix" min="0" required name="_prix">
                         <small id="numberHelp" class="form-text text-muted">Prix en €.</small>
                     </div>
 

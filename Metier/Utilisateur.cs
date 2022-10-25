@@ -26,15 +26,11 @@ namespace Metier
             this.MotDePasse = motDePasse;
         }
 
-        public Utilisateur(MySqlDataReader rdr)
+        public Utilisateur(Dictionary<string, string> dico)
         {
-            rdr.Read();
-            this.IdUtilisateur = rdr.GetInt32(0);
-            this.Nom = rdr.GetString(1);
-            this.Prenom = rdr.GetString(2);
-            this.DateNaissance = rdr.GetDateOnly(3);
-            this.Mail = rdr.GetString(4);
-            this.MotDePasse = rdr.GetString(5);
+            this.IdUtilisateur = int.Parse(dico["idUtilisateur"]);
+            this.Nom = dico["nom"];
+            this.Prenom = dico["prenom"];
         }
     }
 }

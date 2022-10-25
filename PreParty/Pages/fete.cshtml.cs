@@ -18,9 +18,16 @@ namespace PreParty.Pages
         {
             try
             {
-                string idFete = HttpContext.Request.Query["fete"];
-                MySqlDataReader rdr = BDD.Select("SELECT * FROM fete WHERE idFete=" + idFete);
-                this.fete = new Fete(rdr);
+                string idFete;
+                if (HttpContext.Request.Query["fete"] == "")
+                {
+                    idFete = "1";
+                }
+                else
+                {
+                    idFete = HttpContext.Request.Query["fete"];
+                }
+                this.fete = new Fete(BDD.SelectSingleLine("SELECT * FROM fete WHERE idFete=1"));
             }
             catch (Exception ex)
             {

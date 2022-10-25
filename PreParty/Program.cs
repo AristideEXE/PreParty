@@ -24,8 +24,4 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-BDD.Open();
-
 app.Run();
-
-BDD.Close();

@@ -9,44 +9,41 @@ namespace Metier
 {
     public class BDD
     {
-        private static BDD instance;
-        private static BDD Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new BDD();
-                }
-                return instance;
-            }
-        }
-
-        private string connexionString;
-        private MySqlConnection connexion;
+        private static string connexionString = "server=localhost;user id=root; database=preparty";
+        private static MySqlConnection connexion = new MySqlConnection(BDD.connexionString);
 
         public BDD(){
-            string server = "localhost";
-            string user = "root";
-            string database = "preparty";
-            this.connexionString = "server=" + server + ";user id=" + user + ";database=" + database + ";";
         }
 
         public static void Open()
         {
-            Instance.connexion = new MySqlConnection(Instance.connexionString);
-            Instance.connexion.Open();
+            BDD.connexion.Open();
         }
 
         public static void Close()
         {
-            Instance.connexion.Close();
+            BDD.connexion.Close();
         }
 
-        public static MySqlDataReader Select(string selection)
+        public static Dictionary<string, string> SelectSingleLine(string selection)
         {
-            MySqlCommand cmd = new MySqlCommand(selection, Instance.connexion);
-            return cmd.ExecuteReader();
+            Open();
+            MySqlCommand cmd = new MySqlCommand(selection, BDD.connexion);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            Dictionary<string, string> result = DataReaderLigneToDictionnary(rdr);
+            Close();
+            return result;
+        }
+
+        private static Dictionary<string,string> DataReaderLigneToDictionnary(MySqlDataReader rdr)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            rdr.Read();
+            for (int i = 0; i < rdr.FieldCount; i++)
+            {
+                result[rdr.GetName(i)] = rdr.GetValue(i).ToString();
+            }
+            return result;
         }
     }
 }

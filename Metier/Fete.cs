@@ -5,36 +5,35 @@ namespace Metier
     public class Fete
     {
         public int IdFete { get; }
-        public Utilisateur Utilisateur { get; }
+        public Utilisateur Organisateur { get; }
         public string Nom { get; set; }
         public string Description { get; set; }
         public string Lieu { get; set; }
         public string CoordonneesGPS { get; set; }
-        public DateOnly dateDebut { get; set; }
+        public DateOnly DateFete { get; set; }
 
         public Fete(int idFete, Utilisateur utilisateur, string nom, string description, string lieu, string coordonneesGPS, DateOnly dateDebut)
         {
             IdFete = idFete;
-            Utilisateur = utilisateur;
+            Organisateur = utilisateur;
             Nom = nom;
             Description = description;
             Lieu = lieu;
             CoordonneesGPS = coordonneesGPS;
-            this.dateDebut = dateDebut;
+            this.DateFete = dateDebut;
         }
 
-        public Fete(MySqlDataReader rdr)
+        public Fete(Dictionary<string, string> dic)
         {
-            rdr.Read();
-            this.IdFete = rdr.GetInt32(0);
-            int idUtilisateur = rdr.GetInt32(1);
-            this.Nom = rdr.GetString(2);
-            this.Description = rdr.GetString(3);
-            this.Lieu = rdr.GetString(4);
-            this.CoordonneesGPS = rdr.GetString(5);
-            this.dateDebut = rdr.GetDateOnly(6);
+            this.IdFete = int.Parse(dic["idFete"]);
+            int idUtilisateur = int.Parse(dic["idUtilisateur"]);
+            this.Nom = dic["nom"];
+            this.Description = dic["description"];
+            this.Lieu = dic["lieu"];
+            //this.CoordonneesGPS = dic["CoordonnesGPS"];
+            //this.DateFete = DateOnly.Parse(dic["dateFete"]);
 
-            //this.Utilisateur = new Utilisateur(BDD.Select("SELECT * FROM utilisateur WHERE idUtilisateur= " + idUtilisateur));
+            this.Organisateur = new Utilisateur(BDD.SelectSingleLine("SELECT * FROM utilisateur WHERE idUtilisateur= " + idUtilisateur));
         }
     }
 }

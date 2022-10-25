@@ -36,8 +36,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy"><img src="~/imgs/notif.png" height="50" width="50" /></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy"><img src="~/imgs/homme.png" height="50" width="50" /></a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/imgs/homme.png" height="50" width="50" />
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                <span class="dropdown-item-text">Simon Robinet</span>
+                                <a class="dropdown-item" href="#">Gérer mon compte</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Déconnexion</a>
+                            </div>
                         </li>
                     </ul>
                 </div>

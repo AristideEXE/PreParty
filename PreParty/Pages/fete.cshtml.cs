@@ -27,7 +27,7 @@ namespace PreParty.Pages
                 {
                     idFete = HttpContext.Request.Query["fete"];
                 }
-                this.fete = new Fete(BDD.SelectSingleLine("SELECT * FROM fete WHERE idFete=1"));
+                //this.fete = new Fete(BDD.SelectSingleLine("SELECT * FROM fete WHERE idFete=1"));
             }
             catch (Exception ex)
             {

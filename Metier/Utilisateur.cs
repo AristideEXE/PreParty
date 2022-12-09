@@ -11,18 +11,28 @@ namespace Metier
         public int IdUtilisateur { get; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
-        public DateOnly DateNaissance { get; set; }
+        public DateTime DateNaissance { get; set; }
         public string Mail { get; set; }
-        public string MotDePasse { get; }
+        public string Hash { get; set; }
 
-        public Utilisateur(int idUtilisateur, string nom, string prenom, DateOnly dateNaissance, string mail, string motDePasse)
+        public Utilisateur(int idUtilisateur, string nom, string prenom, DateTime dateNaissance, string mail, string hash)
         {
             this.IdUtilisateur = idUtilisateur;
             this.Nom = nom;
             this.Prenom = prenom;
             this.DateNaissance = dateNaissance;
             this.Mail = mail;
-            this.MotDePasse = motDePasse;
+            this.Hash = hash;
+        }
+
+        public Utilisateur(int idUtilisateur)
+        {
+            this.IdUtilisateur = idUtilisateur;
+        }
+
+        public override string ToString()
+        {
+            return $"{Prenom} {Nom}, né le {DateNaissance}";
         }
     }
 }

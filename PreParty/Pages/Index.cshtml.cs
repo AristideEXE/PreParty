@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Metier;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PreParty.Pages
@@ -14,7 +15,10 @@ namespace PreParty.Pages
 
         public void OnGet()
         {
-
+            foreach(Fete fete in CRUDFete.ReadAll())
+            {
+                Console.WriteLine(fete.IdFete);
+            }
         }
     }
 }

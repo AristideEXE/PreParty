@@ -1,10 +1,8 @@
-﻿using MySqlConnector;
-
-namespace Metier
+﻿namespace Metier
 {
     public class Fete
     {
-        public int IdFete { get; }
+        public int IdFete { get; set; }
         public Utilisateur Organisateur { get; }
         public string Nom { get; set; }
         public string Description { get; set; }
@@ -23,17 +21,9 @@ namespace Metier
             this.DateFete = dateDebut;
         }
 
-        public Fete(Dictionary<string, string> dic)
+        public Fete()
         {
-            this.IdFete = int.Parse(dic["idFete"]);
-            int idUtilisateur = int.Parse(dic["idUtilisateur"]);
-            this.Nom = dic["nom"];
-            this.Description = dic["description"];
-            this.Lieu = dic["lieu"];
-            //this.CoordonneesGPS = dic["CoordonnesGPS"];
-            //this.DateFete = DateOnly.Parse(dic["dateFete"]);
 
-            this.Organisateur = new Utilisateur(BDD.SelectSingleLine("SELECT * FROM utilisateur WHERE idUtilisateur= " + idUtilisateur));
         }
     }
 }

@@ -1,7 +1,6 @@
 using Metier;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySqlConnector;
 using System.Data;
 
 namespace PreParty.Pages

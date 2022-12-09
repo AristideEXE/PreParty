@@ -15,37 +15,45 @@ namespace PreParty.Pages
 
         public void OnGet()
         {
-            Console.WriteLine("Ajout d'un utilisateur");
-            Utilisateur toto = new Utilisateur(7, "Tata", "Toto", new DateTime(2008, 12, 4), "toto@gmail.com", "azerty");
-            UtilisateurCRUD.Create(toto);
-            foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
-            {
-                Console.WriteLine(utilisateur);
-            }
+            Utilisateur toto = new Utilisateur(7);
+            toto.Nom = "Dupont";
+            toto.Prenom = "Toto";
+            toto.DateNaissance = new DateTime(2008, 05, 22);
+            toto.Mail = "toto@gmail.com";
+            toto.Password = "azerty";
 
-            Console.WriteLine();
+            Console.WriteLine(toto);
+            //Console.WriteLine("Ajout d'un utilisateur");
+            //Utilisateur toto = new Utilisateur(7, "Tata", "Toto", new DateTime(2008, 12, 4), "toto@gmail.com", "azerty");
+            //UtilisateurCRUD.Create(toto);
+            //foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
+            //{
+            //    Console.WriteLine(utilisateur);
+            //}
 
-            Console.WriteLine("Modification d'un utilisateur");
-            toto.Prenom = "Polo";
-            UtilisateurCRUD.Update(toto);
-            foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
-            {
-                Console.WriteLine(utilisateur);
-            }
+            //Console.WriteLine();
 
-            Console.WriteLine();
+            //Console.WriteLine("Modification d'un utilisateur");
+            //toto.Prenom = "Polo";
+            //UtilisateurCRUD.Update(toto);
+            //foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
+            //{
+            //    Console.WriteLine(utilisateur);
+            //}
 
-            Console.WriteLine("Suppression de l'utilisateur");
-            UtilisateurCRUD.Delete(7);
-            foreach(Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
-            {
-                Console.WriteLine(utilisateur);
-            }
+            //Console.WriteLine();
 
-            Console.WriteLine();
+            //Console.WriteLine("Suppression de l'utilisateur");
+            //UtilisateurCRUD.Delete(7);
+            //foreach(Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
+            //{
+            //    Console.WriteLine(utilisateur);
+            //}
 
-            Console.WriteLine("Utilisateur numéro 5 : ");
-            Console.WriteLine(UtilisateurCRUD.GetById(5));
+            //Console.WriteLine();
+
+            //Console.WriteLine("Utilisateur numéro 5 : ");
+            //Console.WriteLine(UtilisateurCRUD.GetById(5));
         }
     }
 }

@@ -8,7 +8,7 @@ CREATE TABLE utilisateur(
 	prenom VARCHAR(255) NOT NULL,
 	dateNaissance DATE NOT NULL,
 	mail VARCHAR(255) NOT NULL,
-	motDePasse VARCHAR(255) NOT NULL
+	hash VARCHAR(255) NOT NULL
 );
 
 INSERT INTO utilisateur VALUES (1,'Proriol', 'Aristide', '2004-11-19', 'aristidepr@gmail.com', 'azerty'),

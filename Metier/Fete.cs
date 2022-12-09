@@ -30,11 +30,6 @@
             FinFete = finFete;
         }
 
-        public void AjouterInvite(Utilisateur invite)
-        {
-            Invites.Add(invite);
-        }
-
         public override string ToString()
         {
             return $"{Nom}, {Description}, {Lieu}, {Invites.Count} invités";

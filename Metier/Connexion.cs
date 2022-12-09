@@ -10,20 +10,11 @@ namespace Metier
 {
     public class Connexion
     {
-        private static MySqlConnection instance;
-        public static MySqlConnection Instance
+        public static MySqlConnection GetConnection()
         {
-            get
-            {
-                if (instance == null)
-                {
-                    string connexionString = "Data Source=localhost;Initial Catalog=preparty;User ID=root;Password=";
-                    instance = new MySqlConnection(connexionString);
-                    Connexion.Instance.Open();
-                    Console.WriteLine("Connecté à la base de données");
-                }
-                return instance;
-            }
+            string connexionString = "Data Source=localhost;Initial Catalog=preparty;User ID=root;Password=";
+            MySqlConnection conn = new MySqlConnection(connexionString);
+            return conn;
         }
 
         private Connexion() { }

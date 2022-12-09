@@ -30,8 +30,8 @@ namespace PreParty.Pages
                 Console.WriteLine(utilisateur);
             }
 
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("Modification d'un utilisateur");
             toto.Prenom = "Polo";
             UtilisateurCRUD.Update(toto);
@@ -40,8 +40,8 @@ namespace PreParty.Pages
                 Console.WriteLine(utilisateur);
             }
 
-            Console.WriteLine();
 
+            Console.WriteLine();
             Console.WriteLine("Suppression de l'utilisateur");
             UtilisateurCRUD.Delete(7);
             foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
@@ -49,9 +49,9 @@ namespace PreParty.Pages
                 Console.WriteLine(utilisateur);
             }
 
-            Console.WriteLine();
 
-            Console.WriteLine("Utilisateur numéro 2 : ");
+            Console.WriteLine();
+            Console.WriteLine("utilisateur numéro 2 : ");
             Console.WriteLine(UtilisateurCRUD.GetById(2));
 
 

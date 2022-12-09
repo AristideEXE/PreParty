@@ -19,17 +19,21 @@ namespace Metier
             try
             {
                 string query = "INSERT INTO utilisateur (idUtilisateur, nom, prenom, dateNaissance, mail, hash) VALUES (@idUtilisateur, @nom, @prenom, @dateNaissance, @mail, @hash)";
-                MySqlCommand cmd = Connexion.Instance.CreateCommand();
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
-                cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
-                cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
-                cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
-                cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
-                cmd.Parameters.AddWithValue("@hash", utilisateur.Hash);
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
+                    cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
+                    cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
+                    cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
+                    cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
+                    cmd.Parameters.AddWithValue("@hash", utilisateur.Hash);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {
@@ -47,22 +51,26 @@ namespace Metier
             try
             {
                 string query = "SELECT idUtilisateur, nom, prenom, dateNaissance, mail, hash FROM utilisateur";
-                MySqlCommand cmd = Connexion.Instance.CreateCommand();
-                cmd.CommandText = query;
-
-                using (DbDataReader reader = cmd.ExecuteReader())
+                using (MySqlConnection conn = Connexion.GetConnection())
                 {
-                    while (reader.Read())
-                    {
-                        int idUtilisateur = reader.GetInt32(0);
-                        string nom = reader.GetString(1);
-                        string prenom = reader.GetString(2);
-                        DateTime dateNaissance = reader.GetDateTime(3);
-                        string mail = reader.GetString(4);
-                        string hash = reader.GetString(5);
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
 
-                        Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, dateNaissance, mail, hash);
-                        utilisateurs.Add(utilisateur);
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idUtilisateur = reader.GetInt32(0);
+                            string nom = reader.GetString(1);
+                            string prenom = reader.GetString(2);
+                            DateTime dateNaissance = reader.GetDateTime(3);
+                            string mail = reader.GetString(4);
+                            string hash = reader.GetString(5);
+
+                            Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, dateNaissance, mail, hash);
+                            utilisateurs.Add(utilisateur);
+                        }
                     }
                 }
             }
@@ -85,19 +93,23 @@ namespace Metier
             try
             {
                 string query = "SELECT idUtilisateur, nom, prenom, dateNaissance, mail, hash FROM utilisateur WHERE idUtilisateur = @idUtilisateur";
-                MySqlCommand cmd = Connexion.Instance.CreateCommand();     
-                
-                cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@idUtilisateur", id);
-
-                using (DbDataReader reader = cmd.ExecuteReader())
+                using (MySqlConnection conn = Connexion.GetConnection())
                 {
-                    reader.Read();
-                    utilisateur.Nom = reader.GetString(1);
-                    utilisateur.Prenom = reader.GetString(2);
-                    DateTime dateNaissance = reader.GetDateTime(3);
-                    utilisateur.Mail = reader.GetString(4);
-                    utilisateur.Hash = reader.GetString(5);
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", id);
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        reader.Read();
+                        utilisateur.Nom = reader.GetString(1);
+                        utilisateur.Prenom = reader.GetString(2);
+                        DateTime dateNaissance = reader.GetDateTime(3);
+                        utilisateur.Mail = reader.GetString(4);
+                        utilisateur.Hash = reader.GetString(5);
+                    }
                 }
             }
             catch (Exception e)
@@ -117,17 +129,21 @@ namespace Metier
             try
             {
                 string query = "UPDATE utilisateur SET idUtilisateur = @idUtilisateur, nom = @nom, prenom = @prenom, dateNaissance = @dateNaissance, mail = @mail, hash = @hash WHERE idUtilisateur = @idUtilisateur";
-                MySqlCommand cmd = Connexion.Instance.CreateCommand();
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
-                cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
-                cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
-                cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
-                cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
-                cmd.Parameters.AddWithValue("@hash", utilisateur.Hash);
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
+                    cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
+                    cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
+                    cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
+                    cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
+                    cmd.Parameters.AddWithValue("@hash", utilisateur.Hash);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {
@@ -144,12 +160,16 @@ namespace Metier
             try
             {
                 string query = "DELETE FROM utilisateur WHERE idUtilisateur = @idUtilisateur";
-                MySqlCommand cmd = Connexion.Instance.CreateCommand();
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
 
-                cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception e)
             {

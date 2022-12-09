@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Org.BouncyCastle.Asn1.Pkcs;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Metier
 {
@@ -40,6 +41,7 @@ namespace Metier
             }
         }
 
+
         public Utilisateur(int idUtilisateur, string nom, string prenom, DateTime dateNaissance, string mail, string hash)
         {
             this.IdUtilisateur = idUtilisateur;
@@ -55,6 +57,34 @@ namespace Metier
             this.IdUtilisateur = idUtilisateur;
         }
 
+        /// <summary>
+        /// Vérifie le mot de passe de l'utilisateur
+        /// </summary>
+        /// <param name="password">Le mot de passe rentré</param>
+        /// <returns>True si le mot de passe est valide, False sinon</returns>
+        public bool PasswordVerify(string password)
+        {
+            string hash;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                hash = builder.ToString();
+            }
+            return hash == Hash;
+        }
+
+        /// <summary>
+        /// To String de l'utilisateur
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{Prenom} {Nom}, né le {DateNaissance}, {Hash}";

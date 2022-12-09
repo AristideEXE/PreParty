@@ -23,6 +23,9 @@ namespace PreParty.Pages
             toto.Password = "azerty";
 
             Console.WriteLine(toto);
+            Console.WriteLine(toto.PasswordVerify("test"));
+            Console.WriteLine(toto.PasswordVerify("azerty"));
+
             //Console.WriteLine("Ajout d'un utilisateur");
             //Utilisateur toto = new Utilisateur(7, "Tata", "Toto", new DateTime(2008, 12, 4), "toto@gmail.com", "azerty");
             //UtilisateurCRUD.Create(toto);

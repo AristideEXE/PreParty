@@ -50,20 +50,21 @@ namespace Metier
                 MySqlCommand cmd = Connexion.Instance.CreateCommand();
                 cmd.CommandText = query;
 
-                DbDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (DbDataReader reader = cmd.ExecuteReader())
                 {
-                    int idUtilisateur = reader.GetInt32(0);
-                    string nom = reader.GetString(1);
-                    string prenom = reader.GetString(2);
-                    DateTime dateNaissance = reader.GetDateTime(3);
-                    string mail = reader.GetString(4);
-                    string hash = reader.GetString(5);
+                    while (reader.Read())
+                    {
+                        int idUtilisateur = reader.GetInt32(0);
+                        string nom = reader.GetString(1);
+                        string prenom = reader.GetString(2);
+                        DateTime dateNaissance = reader.GetDateTime(3);
+                        string mail = reader.GetString(4);
+                        string hash = reader.GetString(5);
 
-                    Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, dateNaissance, mail, hash);
-                    utilisateurs.Add(utilisateur);
+                        Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, dateNaissance, mail, hash);
+                        utilisateurs.Add(utilisateur);
+                    }
                 }
-                reader.Close();
             }
             catch (Exception e)
             {
@@ -89,16 +90,15 @@ namespace Metier
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@idUtilisateur", id);
 
-                DbDataReader reader = cmd.ExecuteReader();
-                reader.Read();
-
-                utilisateur.Nom = reader.GetString(1);
-                utilisateur.Prenom = reader.GetString(2);
-                utilisateur.DateNaissance = reader.GetDateTime(3);
-                utilisateur.Mail = reader.GetString(4);
-                utilisateur.Hash = reader.GetString(5);
-
-                reader.Close();
+                using (DbDataReader reader = cmd.ExecuteReader())
+                {
+                    reader.Read();
+                    utilisateur.Nom = reader.GetString(1);
+                    utilisateur.Prenom = reader.GetString(2);
+                    DateTime dateNaissance = reader.GetDateTime(3);
+                    utilisateur.Mail = reader.GetString(4);
+                    utilisateur.Hash = reader.GetString(5);
+                }
             }
             catch (Exception e)
             {

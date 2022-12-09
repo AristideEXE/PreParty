@@ -11,6 +11,8 @@ namespace Metier
 {
     public class Utilisateur
     {
+        #region attributs
+
         public int IdUtilisateur { get; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
@@ -41,7 +43,9 @@ namespace Metier
             }
         }
 
+        #endregion
 
+        #region constructeurs
         public Utilisateur(int idUtilisateur, string nom, string prenom, DateTime dateNaissance, string mail, string hash)
         {
             this.IdUtilisateur = idUtilisateur;
@@ -57,6 +61,9 @@ namespace Metier
             this.IdUtilisateur = idUtilisateur;
         }
 
+        #endregion
+
+        #region methodes
         /// <summary>
         /// Vérifie le mot de passe de l'utilisateur
         /// </summary>
@@ -87,7 +94,9 @@ namespace Metier
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{Prenom} {Nom}, né le {DateNaissance}, {Hash}";
+            return $"{Prenom} {Nom}, né le {DateNaissance.Date}, {Hash}";
         }
+
+        #endregion
     }
 }

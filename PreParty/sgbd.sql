@@ -11,22 +11,26 @@ CREATE TABLE utilisateur(
 	hash VARCHAR(255) NOT NULL
 );
 
-INSERT INTO utilisateur VALUES (1,'Proriol', 'Aristide', '2004-11-19', 'aristidepr@gmail.com', 'azerty'),
-(2,'Maitrot', 'Teo', '2002-03-14', 'teomaitr21@gmail.com', 'azerty'),
-(3,'Robinet', 'Simon', '2003-09-27', 'simonrobinet@gmail.com', 'azerty');
-
 CREATE TABLE fete(
 	idFete int primary key auto_increment,
-	idUtilisateur int not null,
-	nom varchar(255),
+	organisateur int not null,
+	nom varchar(255) not null,
 	description text,
 	lieu varchar(255),
 	coordonneesGPS varchar(255),
-	dateFete date,
-	heureDebut time,
-	heureFin time,
-	foreign key (idUtilisateur) references utilisateur(idUtilisateur)
+	debutFete timestamp default current_timestamp,
+	finFete timestamp default current_timestamp,
+	foreign key (organisateur) references utilisateur(idUtilisateur)
 );
+
+CREATE TABLE invites(
+   idFete INT,
+   idUtilisateur INT,
+   FOREIGN KEY(idFete) REFERENCES fete(idFete),
+   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(idUtilisateur),
+   PRIMARY KEY(idFete, idUtilisateur)
+);
+
 
 CREATE TABLE Depense(
    idDepense int,
@@ -37,13 +41,8 @@ CREATE TABLE Depense(
    FOREIGN KEY(idFete) REFERENCES fete(idFete)
 );
 
-CREATE TABLE Participe(
-   id_utilisateur INT,
-   idFete INT,
-   PRIMARY KEY(id_utilisateur, idFete),
-   FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur),
-   FOREIGN KEY(idFete) REFERENCES fete(idFete)
-);
-
-
-insert into fete values (1,1, 'Anniversaire toto', 'Venez à ma superbe fête d''anniversaire ça va être génial', '78 boulevard de Strasbourg', '107.0.0.1', '2022-11-19', '19:00', '01:00');
+INSERT INTO utilisateur VALUES (1,'Proriol', 'Aristide', '2004-11-19', 'aristidepr@gmail.com', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9'),
+(2,'Maitrot', 'Teo', '2002-03-14', 'teomaitr21@gmail.com', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9'),
+(3,'Robinet', 'Simon', '2003-09-27', 'simonrobinet@gmail.com', 'f2d81a260dea8a100dd517984e53c56a7523d96942a834b9cdc249bd4e8c7aa9');
+insert into fete values (1,1, 'Anniversaire toto', 'Venez à ma superbe fête d''anniversaire ça va être génial', '78 boulevard de Strasbourg', '107.0.0.1', '2022-11-19 17:00', '2022-11-20 05:00');
+insert into invites values (1,2),(1,3);

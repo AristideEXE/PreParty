@@ -5,18 +5,18 @@ namespace PreParty.Pages
 {
     public class CreationFeteModel : PageModel
     {
-        private string date;
-        public string Date
+        private string dateAjd;
+        public string DateAjd
         {
-            get { return date; }
+            get { return dateAjd; }
             set
             {
-                this.date = value;
+                this.dateAjd = value;
             }
         }
         public void OnGet()
         {
-            this.date = DateTime.Now.ToString("yyyy-MM-dd");
+            this.dateAjd = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
         public void OnPost()

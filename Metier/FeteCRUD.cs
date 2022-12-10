@@ -139,5 +139,56 @@ namespace Metier
             }
             return invites;
         }
+
+        /// <summary>
+        /// Supprim un invité d'une fête dans la base de données si il est bien invité
+        /// </summary>
+        /// <param name="idInvite"></param>
+        /// <param name="idFete"></param>
+        public static void RemoveInvite(int idFete,int idInvite)
+        {
+            try
+            {
+                string query = "DELETE FROM invites WHERE idUtilisateur = @idUtilisateur && idFete = @idFete";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idInvite);
+                    cmd.Parameters.AddWithValue("@idFete", idFete);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
+        public static void AddInvite(int idFete, int idInvite)
+        {
+            try
+            {
+                string query = "INSERT INTO invites (idFete,idUtilisateur) VALUES (@idFete, @idUtilisateur)";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idFete", idFete);
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idInvite);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
     }
 }

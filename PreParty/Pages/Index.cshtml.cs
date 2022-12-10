@@ -15,7 +15,7 @@ namespace PreParty.Pages
 
         public void OnGet()
         {
-            Console.WriteLine("Ajout d'un utilisateur");
+            Console.WriteLine("======================== Ajout d'un utilisateur ========================");
 
             Utilisateur toto = new Utilisateur(7);
             toto.Nom = "Dupont";
@@ -32,7 +32,7 @@ namespace PreParty.Pages
 
 
             Console.WriteLine();
-            Console.WriteLine("Modification d'un utilisateur");
+            Console.WriteLine("======================== Modification d'un utilisateur ========================");
             toto.Prenom = "Polo";
             UtilisateurCRUD.Update(toto);
             foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
@@ -40,26 +40,34 @@ namespace PreParty.Pages
                 Console.WriteLine(utilisateur);
             }
 
-
             Console.WriteLine();
-            Console.WriteLine("Suppression de l'utilisateur");
-            UtilisateurCRUD.Delete(7);
-            foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
-            {
-                Console.WriteLine(utilisateur);
-            }
-
-
-            Console.WriteLine();
-            Console.WriteLine("utilisateur numéro 2 : ");
+            Console.WriteLine("======================== Utilisateur numéro 2 :  ========================");
             Console.WriteLine(UtilisateurCRUD.GetById(2));
 
 
             Console.WriteLine();
-            Console.WriteLine("Affichage des fêtes");
+            Console.WriteLine("======================== Affichage des fêtes ========================");
             foreach (Fete fete in FeteCRUD.ReadAll())
             {
                 Console.WriteLine(fete);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("======================== Ajout de toto à la fête ========================");
+            FeteCRUD.AddInvite(1, toto.IdUtilisateur);
+            Console.WriteLine(FeteCRUD.GetById(1));
+
+            Console.WriteLine();
+            Console.WriteLine("======================== Suppression de toto àa la fête ========================");
+            FeteCRUD.RemoveInvite(1, toto.IdUtilisateur);
+            Console.WriteLine(FeteCRUD.GetById(1));
+
+            Console.WriteLine();
+            Console.WriteLine("======================== Suppression de l'utilisateur ========================");
+            UtilisateurCRUD.Delete(7);
+            foreach (Utilisateur utilisateur in UtilisateurCRUD.ReadAll())
+            {
+                Console.WriteLine(utilisateur);
             }
         }
     }

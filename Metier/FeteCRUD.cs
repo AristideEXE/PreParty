@@ -63,6 +63,46 @@ namespace Metier
             return fetes;
         }
 
+        /// <summary>
+        /// Renvoie une fête
+        /// </summary>
+        /// <param name="idFete">L'identifiant de la fête</param>
+        /// <returns>La fête choisie</returns>
+        public static Fete GetById(int idFete)
+        {
+            Fete fete = new Fete(idFete);
+            try
+            {
+                string query = "SELECT organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete WHERE idFete = @idFete";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idFete", idFete);
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        reader.Read();
+                        int idOrganisateur = reader.GetInt32(0);
+                        fete.Organisateur = UtilisateurCRUD.GetById(idOrganisateur);
+                        fete.Nom = reader.GetString(1);
+                        fete.Description = reader.GetString(2);
+                        fete.Lieu = reader.GetString(3);
+                        fete.CoordonneesGPS = reader.GetString(4);
+                        fete.DebutFete = reader.GetDateTime(5);
+                        fete.FinFete = reader.GetDateTime(6);
+                        fete.Invites = GetInvites(idFete);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return fete;
+        }
 
         /// <summary>
         /// Renvoie la liste des invités d'une fête

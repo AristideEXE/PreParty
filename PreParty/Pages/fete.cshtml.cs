@@ -15,23 +15,25 @@ namespace PreParty.Pages
 
         public void OnGet()
         {
-            //try
-            //{
-            //    string idFete;
-            //    if (HttpContext.Request.Query["fete"] == "")
-            //    {
-            //        idFete = "1";
-            //    }
-            //    else
-            //    {
-            //        idFete = HttpContext.Request.Query["fete"];
-            //    }
-            //    this.fete = new Fete(BDD.SelectSingleLine("SELECT * FROM fete WHERE idFete=1"));
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex);
-            //}
+            try
+            {
+                int idFete;
+                //if (HttpContext.Request.Query["fete"] == "")
+                //{
+                    //Response.Redirect("Index");
+                    idFete = 1;
+                    this.fete = FeteCRUD.GetById(idFete);
+                //}
+                //else
+                //{
+                //    idFete = Int32.Parse(HttpContext.Request.Query["fete"]);
+                //    this.fete = FeteCRUD.GetById(idFete);
+                //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

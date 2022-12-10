@@ -87,9 +87,9 @@ namespace Metier
         /// </summary>
         /// <param name="id">L'identifiant de la personne</param>
         /// <returns>L'utilisateur</returns>
-        public static Utilisateur GetById(int id)
+        public static Utilisateur GetById(int idUtilisateur)
         {
-            Utilisateur utilisateur = new Utilisateur(id);
+            Utilisateur utilisateur = new Utilisateur(idUtilisateur);
             try
             {
                 string query = "SELECT idUtilisateur, nom, prenom, dateNaissance, mail, hash FROM utilisateur WHERE idUtilisateur = @idUtilisateur";
@@ -99,7 +99,7 @@ namespace Metier
                     MySqlCommand cmd = conn.CreateCommand();
 
                     cmd.CommandText = query;
-                    cmd.Parameters.AddWithValue("@idUtilisateur", id);
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
 
                     using (DbDataReader reader = cmd.ExecuteReader())
                     {

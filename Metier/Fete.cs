@@ -2,8 +2,10 @@
 {
     public class Fete
     {
+        #region attributs
+
         public int IdFete { get; set; }
-        public Utilisateur Organisateur { get; }
+        public Utilisateur Organisateur { get; set; }
         public string Nom { get; set; }
         public string Description { get; set; }
         public string Lieu { get; set; }
@@ -12,6 +14,10 @@
         public DateTime FinFete { get; set; }
 
         public List<Utilisateur> Invites { get; set; }
+
+        #endregion
+
+        #region constructeur
 
         public Fete(int idFete)
         {
@@ -30,9 +36,15 @@
             FinFete = finFete;
         }
 
+        #endregion
+
+        #region methodes
+
         public override string ToString()
         {
             return $"{Nom}, {Description}, {Lieu}, {Invites.Count} invités";
         }
+
+        #endregion
     }
 }

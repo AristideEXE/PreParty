@@ -6,7 +6,7 @@ CREATE TABLE utilisateur(
 	idUtilisateur int primary key auto_increment,
 	nom VARCHAR(255) NOT NULL,
 	prenom VARCHAR(255) NOT NULL,
-	dateNaissance DATE NOT NULL,
+	dateNaissance DATETIME NOT NULL,
 	mail VARCHAR(255) NOT NULL,
 	hash VARCHAR(255) NOT NULL
 );
@@ -18,8 +18,8 @@ CREATE TABLE fete(
 	description text,
 	lieu varchar(255),
 	coordonneesGPS varchar(255),
-	debutFete timestamp default current_timestamp,
-	finFete timestamp default current_timestamp,
+	debutFete datetime,
+	finFete datetime,
 	foreign key (organisateur) references utilisateur(idUtilisateur)
 );
 

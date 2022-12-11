@@ -64,7 +64,7 @@ namespace Metier
                             int idUtilisateur = reader.GetInt32(0);
                             string nom = reader.GetString(1);
                             string prenom = reader.GetString(2);
-                            DateTime dateNaissance = reader.GetDateTime(3);
+                            DateTime dateNaissance = Convert.ToDateTime(reader.GetString(3));
                             string mail = reader.GetString(4);
                             string hash = reader.GetString(5);
 
@@ -106,7 +106,7 @@ namespace Metier
                         reader.Read();
                         utilisateur.Nom = reader.GetString(1);
                         utilisateur.Prenom = reader.GetString(2);
-                        DateTime dateNaissance = reader.GetDateTime(3);
+                        utilisateur.DateNaissance = reader.GetDateTime(3);
                         utilisateur.Mail = reader.GetString(4);
                         utilisateur.Hash = reader.GetString(5);
                     }
@@ -119,6 +119,23 @@ namespace Metier
             return utilisateur;
         }
 
+        public static bool UtilisateurExists(int idUtilisateur)
+        {
+            string query = "SELECT * FROM utilisateur WHERE idUtilisateur = @idUtilisateur";
+            using (MySqlConnection conn = Connexion.GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+
+                using (DbDataReader reader = cmd.ExecuteReader())
+                {
+                    return reader.HasRows;
+                }
+            }
+        }
 
         /// <summary>
         /// Modifie l'utilisateur dans la base de données

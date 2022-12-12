@@ -42,6 +42,36 @@ namespace Metier
         }
 
         /// <summary>
+        /// Insere un utilisateur qui n'a pas d'identifiant dans la base de données
+        /// </summary>
+        /// <param name="utilisateur">L'utilisateur à ajouter</param>
+        public static void CreateWithoutId (Utilisateur utilisateur)
+        {
+            try
+            {
+                string query = "INSERT INTO utilisateur (nom, prenom, dateNaissance, mail, hash) VALUES (@nom, @prenom, @dateNaissance, @mail, @hash)";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
+                    cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
+                    cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
+                    cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
+                    cmd.Parameters.AddWithValue("@hash", utilisateur.Hash);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
+        /// <summary>
         /// Renvoie la liste de tous les utilisateurs de la bdd
         /// </summary>
         /// <returns>La liste des utilisateurs</returns>

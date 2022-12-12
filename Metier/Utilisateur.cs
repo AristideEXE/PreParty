@@ -56,6 +56,23 @@ namespace Metier
             this.Hash = hash;
         }
 
+        /// <summary>
+        /// Construire un utilisateur sans id
+        /// </summary>
+        /// <param name="nom">nom de l'utilisateur</param>
+        /// <param name="prenom">prenom de l'utilisateur</param>
+        /// <param name="dateNaissance">sa date de naissance</param>
+        /// <param name="mail">son mail</param>
+        /// <param name="hash">son mot de passe hashé</param>
+        public Utilisateur(string nom, string prenom, DateTime dateNaissance, string mail, string hash)
+        {
+            this.Nom = nom;
+            this.Prenom = prenom;
+            this.DateNaissance = dateNaissance;
+            this.Mail = mail;
+            this.Hash = hash;
+        }
+
         public Utilisateur(int idUtilisateur)
         {
             this.IdUtilisateur = idUtilisateur;

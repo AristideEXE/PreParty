@@ -1,3 +1,4 @@
+using Metier;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -29,7 +30,12 @@ namespace PreParty.Pages
             string password = Request.Form["_password"];
             string passwordConfirm = Request.Form["_passwordConfirm"];
 
+            Console.WriteLine(nom);
+
             //Insertion de la base de donnée à faire
+            Utilisateur user = new Utilisateur(nom, prenom, Convert.ToDateTime(dateNaissance), email, Utilisateur.GetHashString(password));
+            UtilisateurCRUD.CreateWithoutId(user);
+
 
             if (password != passwordConfirm)
             {

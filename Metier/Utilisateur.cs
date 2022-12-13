@@ -20,6 +20,21 @@ namespace Metier
         public string Mail { get; set; }
         public string Hash { get; set; }
 
+        public static byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+
         /// <summary>
         /// Permet de créer le hash du mot de passe
         /// </summary>
@@ -27,19 +42,9 @@ namespace Metier
         {
             set
             {
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    // ComputeHash - returns byte array  
-                    byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(value));
-
-                    // Convert byte array to a string   
-                    StringBuilder builder = new StringBuilder();
-                    for (int i = 0; i < bytes.Length; i++)
-                    {
-                        builder.Append(bytes[i].ToString("x2"));
-                    }
-                    Hash = builder.ToString();
-                }
+        
+                Hash = GetHashString(value);
+           
             }
         }
 
@@ -88,20 +93,7 @@ namespace Metier
         /// <returns>True si le mot de passe est valide, False sinon</returns>
         public bool PasswordVerify(string password)
         {
-            string hash;
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                hash = builder.ToString();
-            }
+            string hash = GetHashString(password);
             return hash == Hash;
         }
 

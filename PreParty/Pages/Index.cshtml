@@ -5,6 +5,24 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 mt-4">Accueil</h1>
+    @*Si on est connecté*@
+    @if (true){
+        @for (int i = 0; i < 5; i++){
+            <div class="p-4 my-4 shadow rounded row">
+                <div class="col-3 border-end p-2 align-self-center">
+                    <p>Organisateur : Aristide Proriol</p>
+                    <img src="imgs/homme (1).png" alt="" class="w-50" />
+                </div>
+                <div class="col align-self-center px-4 py-1 text-start">
+                    <h2 class="text-left">Ma superbe fête</h2>
+                    <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra felis et est blandit, eu bibendum tellus consequat. Praesent scelerisque, est sed imperdiet tempor, turpis tortor dapibus augue, vitae laoreet felis elit sed nisl. Duis non arcu nec felis molestie volutpat.</p>
+                    <p>Lieu : 78 boulevard de strasbourg</p>
+                    <p>Début : 19/11/2004 17:00:00
+                    <br/>
+                    Fin : 20/11/2004 05:00:00</p>
+                </div>
+            </div>
+        }
+    }
 </div>

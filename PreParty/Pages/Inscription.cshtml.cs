@@ -30,16 +30,15 @@ namespace PreParty.Pages
             string password = Request.Form["_password"];
             string passwordConfirm = Request.Form["_passwordConfirm"];
 
-            Console.WriteLine(nom);
 
             //Insertion de la base de donnée à faire
-            Utilisateur user = new Utilisateur(nom, prenom, Convert.ToDateTime(dateNaissance), email, Utilisateur.GetHashString(password));
-            UtilisateurCRUD.CreateWithoutId(user);
-
-
-            if (password != passwordConfirm)
+            if((password == passwordConfirm) && (password.Length >= 8)) {
+                Utilisateur user = new Utilisateur(nom, prenom, Convert.ToDateTime(dateNaissance), email, Utilisateur.GetHashString(password));
+                UtilisateurCRUD.CreateWithoutId(user); 
+            }
+            else
             {
-                //To do
+                // to do
             }
         }
     }

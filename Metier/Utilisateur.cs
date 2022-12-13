@@ -106,6 +106,22 @@ namespace Metier
             return $"{Prenom} {Nom}, né le {DateNaissance.Date}, {Hash}";
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is Utilisateur utilisateur &&
+                   IdUtilisateur == utilisateur.IdUtilisateur &&
+                   Nom == utilisateur.Nom &&
+                   Prenom == utilisateur.Prenom &&
+                   DateNaissance == utilisateur.DateNaissance &&
+                   Mail == utilisateur.Mail &&
+                   Hash == utilisateur.Hash;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(IdUtilisateur, Nom, Prenom, DateNaissance, Mail, Hash);
+        }
+
         #endregion
     }
 }

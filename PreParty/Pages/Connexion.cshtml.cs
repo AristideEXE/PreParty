@@ -9,6 +9,14 @@ namespace PreParty.Pages
     {
         public void OnGet()
         {
+            if (UtilisateurLogin.Instance.IsConnected)
+            {
+                UtilisateurLogin.Instance.Disconnect();
+            }
+            else
+            {
+                UtilisateurLogin.Instance.Connect(UtilisateurCRUD.GetById(1));
+            }
         }
 
         public void OnPost()

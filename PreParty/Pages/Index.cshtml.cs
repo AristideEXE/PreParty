@@ -15,7 +15,6 @@ namespace PreParty.Pages
 
         public void OnGet()
         {
-            
         }
     }
 }

@@ -35,17 +35,22 @@
             <div class="p-4 my-3 shadow rounded">
                 <h2>
                     Invités
-                    <a href="#">
+                    @if (Model.Fete.Organisateur.Equals(UtilisateurLogin.Instance.GetUtilisateur())){
+                        <a href="#">
                         <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
                     </a>
+                    }
                 </h2>
                 <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
                     @foreach (Utilisateur invite in Model.Fete.Invites)
                     {
                         <div class="row bg-light rounded my-2 p-2 invite align-items-center rounded">
                             <div class="col"><img src="imgs/femme.png" width="60px" class=""/></div>
-                            <div class="col-5">@invite.Prenom @invite.Nom</div>
-                            <div class="col"><a href="#" class="btn btn-primary">Supprimer</a></div>
+                            <div class="col-5 text-center">@invite.Prenom @invite.Nom</div>
+                            @if (Model.Fete.Organisateur.Equals(UtilisateurLogin.Instance.GetUtilisateur()))
+                            {
+                                <div class="col"><a href="#" class="btn btn-primary">Supprimer</a></div>
+                            }
                         </div>
                     }
                 </div>

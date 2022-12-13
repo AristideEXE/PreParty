@@ -1,13 +1,14 @@
 ﻿@page
+@using Metier;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4 mt-4">Accueil</h1>
     @*Si on est connecté*@
-    @if (true){
+    @if (UtilisateurLogin.Instance.IsConnected){
+        <h1 class="display-4 mt-4">Vos prochaines fêtes</h1>
         @for (int i = 0; i < 5; i++){
             <div class="p-4 my-4 shadow rounded row">
                 <div class="col-3 border-end p-2 align-self-center">
@@ -24,5 +25,8 @@
                 </div>
             </div>
         }
+    }
+    else{
+        <h1>Preparty</h1>
     }
 </div>

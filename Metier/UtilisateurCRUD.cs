@@ -149,6 +149,53 @@ namespace Metier
             return utilisateur;
         }
 
+        /// <summary>
+        /// Renvoie un utilisateur par son mail, et nul si l'utilisateur n'est pas trouvé
+        /// </summary>
+        /// <param name="mail">L'identifiant de la personne</param>
+        /// <returns>L'utilisateur ou null</returns>
+        public static Utilisateur GetByMail(string mail)
+        {
+            Utilisateur utilisateur = null;
+            try
+            {
+                string query = "SELECT idUtilisateur, nom, prenom, dateNaissance, mail, hash FROM utilisateur WHERE mail = @mail";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@mail", mail);
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            utilisateur = new Utilisateur(reader.GetInt32(0));
+                            utilisateur.Nom = reader.GetString(1);
+                            utilisateur.Prenom = reader.GetString(2);
+                            utilisateur.DateNaissance = reader.GetDateTime(3);
+                            utilisateur.Mail = reader.GetString(4);
+                            utilisateur.Hash = reader.GetString(5);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return utilisateur;
+        }
+
+
+        /// <summary>
+        /// Renvoie true si l'utilisateur existe et false sinon
+        /// </summary>
+        /// <param name="idUtilisateur">L'identifiant de l'utilisateur</param>
+        /// <returns></returns>
         public static bool UtilisateurExists(int idUtilisateur)
         {
             string query = "SELECT * FROM utilisateur WHERE idUtilisateur = @idUtilisateur";

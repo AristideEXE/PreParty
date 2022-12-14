@@ -40,6 +40,20 @@
 
         #region methodes
 
+        public void AddInvite(int idInvite)
+        {
+            Invites.Add(UtilisateurCRUD.GetById(idInvite));
+            FeteCRUD.AddInvite(IdFete, idInvite);
+            // Envoyer notification
+        }
+
+        public void RemoveInvite(int idInvite)
+        {
+            Invites.Remove(UtilisateurCRUD.GetById(idInvite));
+            FeteCRUD.RemoveInvite(IdFete, idInvite);
+            // Envoyer notification
+        }
+
         public override string ToString()
         {
             return $"{Nom}, {Description}, {Lieu}, {Invites.Count} invités";

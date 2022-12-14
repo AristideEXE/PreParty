@@ -13,6 +13,14 @@ namespace PreParty.Pages
             get { return fete; }
         }
 
+        public bool EstOrganisateur
+        {
+            get
+            {
+                return fete.Organisateur.Equals(UtilisateurLogin.Instance.GetUtilisateur());
+            }
+        }
+
         public void OnLoad()
         {
             Console.WriteLine("test");
@@ -33,7 +41,15 @@ namespace PreParty.Pages
                         {
                             if (Fete.Invites.Contains(UtilisateurLogin.Instance.GetUtilisateur()) || fete.Organisateur.Equals(UtilisateurLogin.Instance.GetUtilisateur()))
                             {
-                                // Tout va bien
+                                // Si on essaye de supprimer un invité de la fête
+                                if (HttpContext.Request.Query.ContainsKey("removeInvite"))
+                                {
+                                    int idInvite = int.Parse(HttpContext.Request.Query["removeInvite"]);
+                                    if (EstOrganisateur)
+                                    {
+                                        fete.RemoveInvite(idInvite);
+                                    }
+                                }
                             }
                             else
                             {

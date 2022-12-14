@@ -9,7 +9,7 @@
 </div>
 
 <div class="container-fluid">
-    <form method="post">
+    <form method="post" name="CreationFeteForm" onsubmit="return Valider()">
     <div class="row">
         <!--Formulaire des informations principales de la fête : -->
         <div class="col-md-6">
@@ -39,24 +39,18 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <label for="inputDate">Date</label>
-                                <input type="date" class="form-control" id="inputDate" min="@Model.DateAjd" required name="_date">
+                                <label for="inputDateDebut">Date Début</label>
+                                <input type="datetime-local" min="2022-12-14T19:42" class="form-control" id="inputDateDebut" required name="_dateDebut">
                             </div>
                         </div>
 
                         <div class="col-md">
                             <div class="form-group">
-                                <label for="inputHeureDebut">Heure de début :</label>
-                                <input type="time" class="form-control" id="inputHeureDebut" required name="_hdebut">
+                                <label for="inputDateFin">Date de fin</label>
+                                <input type="datetime-local" class="form-control" id="inputDateFin" required name="_dateFin">
                             </div>
                         </div>
-
-                        <div class="col-md">
-                            <div class="form-group">
-                                <label for="inputHeureFin">Heure de fin :</label>
-                                <input type="time" class="form-control" id="inputHeureFin" required name="_hfin">
-                            </div>
-                        </div>
+                 
 
                     </div>
 
@@ -110,3 +104,34 @@
     </div>
     </form>
 </div>
+<script>
+    function Valider() {
+        var nom = document.forms["CreationFeteForm"]["inputNom"];
+        var adress = document.forms["CreationFeteForm"]["inputAdresse"];
+        var gps = document.forms["CreationFeteForm"]["inputGPS"];
+        var dateDebut = document.forms["CreationFeteForm"]["inputDateDebut"];
+        var dateFin = document.forms["CreationFeteForm"]["inputDateFin"];
+        var description = document.forms["CreationFeteForm"]["inputDescritpion"];
+        var prix = document.forms["CreationFeteForm"]["inputPrix"];
+
+        if(dateDebut.value.getTime() > dateFin.value.getTime()){
+            alert("La date de fin est plus tôt que la date de début");
+            dateFin.focus();
+            return false;
+        }
+
+        /*
+        if (pass1.value.length < 8) {
+            alert("Le mote de passe n'est pas assez long vous devez renseigner au moins 8 caractères");
+            pass1.focus();
+            return false;
+        }
+        if (pass1.value != pass2.value) {
+            alert("Veuillez renseigner le même mot de passe");
+            pass2.focus();
+            return false;
+        }
+        */
+
+    }
+</script>

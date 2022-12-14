@@ -29,6 +29,7 @@ namespace PreParty.Pages
             {
                 if (user.PasswordVerify(mdp)) {
                     UtilisateurLogin.Instance.Connect(user);
+                    Response.Redirect("Index");
                 }
                 else
                 {

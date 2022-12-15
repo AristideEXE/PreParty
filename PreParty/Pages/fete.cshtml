@@ -72,17 +72,18 @@
                 <div class="p-4 my-3 shadow rounded">
                     <h2>Posts</h2>
                     <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
-                        @for (int i = 1; i < 4; i++)
-                    {
+                        @if (Model.Fete.Posts.Count == 0){
+                            <p>Aucun post pour le moment</p>
+                        }
+                        else{
+                            @foreach (Post post in Model.Fete.Posts){
                             <div class="bg-light rounded p-3 my-3">
-                                <h3>Post numéro @i</h3>
-                                <p>24/10/2022</p>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
-                                    Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
-                                </p>
+                                <h3>@post.Titre</h3>
+                                <p>@post.datePost</p>
+                                <p>@post.Contenu</p>
                             </div>
-                    }
+                            }
+                        }
                     </div>
                 </div>
             </div>

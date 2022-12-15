@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md p-4">
                 <h2>Vos invitations</h2>
-                @foreach (Fete fete in UtilisateurCRUD.GetInvitations(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
+                @foreach (Fete fete in UtilisateurManager.GetInvitations(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
                 {
                     <a href="Fete?fete=@fete.IdFete" class="text-decoration-none text-black">
                         <div class="p-4 my-4 shadow rounded row">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-md p-4">
                 <h2>Les fêtes ques vous organisez</h2>
-                @foreach (Fete fete in UtilisateurCRUD.GetOrganisations(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
+                @foreach (Fete fete in UtilisateurManager.GetOrganisations(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
                 {
                     <a href="Fete?fete=@fete.IdFete" class="text-decoration-none text-black">
                         <div class="p-4 my-4 shadow rounded row">

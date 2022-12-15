@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Metier
 {
-    public class FeteCRUD
+    public class FeteManager
     {
         /// <summary>
         /// Ajoute une fête dans la BDD;
@@ -41,7 +41,7 @@ namespace Metier
                         {
                             int idFete = reader.GetInt32(0);
                             int idOrganisateur = reader.GetInt32(1);
-                            Utilisateur organisateur = UtilisateurCRUD.GetById(idOrganisateur);
+                            Utilisateur organisateur = UtilisateurManager.GetById(idOrganisateur);
                             string nom = reader.GetString(2);
                             string description = reader.GetString(3);
                             string lieu = reader.GetString(4);
@@ -51,6 +51,7 @@ namespace Metier
 
                             Fete fete = new Fete(idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete);
                             fete.Invites = GetInvites(idFete);
+                            fete.Posts = GetFetePosts(idFete);
                             fetes.Add(fete);
                         }
                     }
@@ -109,7 +110,7 @@ namespace Metier
                     {
                         reader.Read();
                         int idOrganisateur = reader.GetInt32(0);
-                        fete.Organisateur = UtilisateurCRUD.GetById(idOrganisateur);
+                        fete.Organisateur = UtilisateurManager.GetById(idOrganisateur);
                         fete.Nom = reader.GetString(1);
                         fete.Description = reader.GetString(2);
                         fete.Lieu = reader.GetString(3);
@@ -117,6 +118,7 @@ namespace Metier
                         fete.DebutFete = reader.GetDateTime(5);
                         fete.FinFete = reader.GetDateTime(6);
                         fete.Invites = GetInvites(idFete);
+                        fete.Posts = GetFetePosts(idFete);
                     }
                 }
             }
@@ -151,7 +153,7 @@ namespace Metier
                         while (reader.Read())
                         {
                             int idInvite = reader.GetInt32(0);
-                            invites.Add(UtilisateurCRUD.GetById(idInvite));
+                            invites.Add(UtilisateurManager.GetById(idInvite));
                         }
                     }
                 }
@@ -212,6 +214,42 @@ namespace Metier
             {
                 Console.WriteLine("Une erreur est survenue : " + e);
             }
+        }
+
+        public static List<Post> GetFetePosts(int idFete)
+        {
+            List<Post> posts = new List<Post>();
+            try
+            {
+                string query = "SELECT (idPost, titre, datePost, contenu) FROM post WHERE idFete = @idFete";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idFete", idFete);
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idPost = reader.GetInt32(0);
+                            string titre = reader.GetString(1);
+                            DateTime datePost = reader.GetDateTime(2);
+                            string contenu = reader.GetString(3);
+
+                            Post post = new Post(idPost, titre, datePost, contenu);
+                            posts.Add(post);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return posts;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace PreParty.Pages
 {
     public class FeteModel : PageModel
     {
-        private Fete fete = FeteCRUD.GetById(1);
+        private Fete fete = FeteManager.GetById(1);
         public Fete Fete
         {
             get { return fete; }
@@ -33,9 +33,9 @@ namespace PreParty.Pages
                 // J'essaye de récupérer l'identifiant de la fête à laquelle on veut accéder
                 if (HttpContext.Request.Query.ContainsKey("fete")){
                     int idFete = int.Parse(HttpContext.Request.Query["fete"]);
-                    if (FeteCRUD.FeteExists(idFete))
+                    if (FeteManager.FeteExists(idFete))
                     {
-                        this.fete = FeteCRUD.GetById(idFete);
+                        this.fete = FeteManager.GetById(idFete);
                         // Je vérifie que la personne soit invitée à la fête ou qu'elle en soit l'organisateur
                         if (UtilisateurLogin.Instance.IsConnected)
                         {

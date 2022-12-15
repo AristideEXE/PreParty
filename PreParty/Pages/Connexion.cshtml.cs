@@ -24,7 +24,7 @@ namespace PreParty.Pages
         {
             string adresse = Request.Form["email"];
             string mdp = Request.Form["mdp"];
-            Utilisateur user = UtilisateurCRUD.GetByMail(adresse);
+            Utilisateur user = UtilisateurManager.GetByMail(adresse);
             if(user != null)
             {
                 if (user.PasswordVerify(mdp)) {

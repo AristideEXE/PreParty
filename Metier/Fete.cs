@@ -16,6 +16,7 @@
         public int Prix { get; set; }
 
         public List<Utilisateur> Invites { get; set; }
+        public List<Post> Posts { get; set; }
 
         #endregion
 
@@ -55,22 +56,22 @@
 
         public void AddInvite(int idInvite)
         {
-            Invites.Add(UtilisateurCRUD.GetById(idInvite));
-            FeteCRUD.AddInvite(IdFete, idInvite);
+            Invites.Add(UtilisateurManager.GetById(idInvite));
+            FeteManager.AddInvite(IdFete, idInvite);
             // Envoyer notification
         }
 
         public void RemoveInvite(int idInvite)
         {
-            Invites.Remove(UtilisateurCRUD.GetById(idInvite));
-            FeteCRUD.RemoveInvite(IdFete, idInvite);
+            Invites.Remove(UtilisateurManager.GetById(idInvite));
+            FeteManager.RemoveInvite(IdFete, idInvite);
             // Envoyer notification
         }
 
         public void QuitterFete(int idInvite)
         {
-            Invites.Remove(UtilisateurCRUD.GetById(idInvite));
-            FeteCRUD.RemoveInvite(IdFete, idInvite);
+            Invites.Remove(UtilisateurManager.GetById(idInvite));
+            FeteManager.RemoveInvite(IdFete, idInvite);
             // Envoyer notification à l'organisateur 
         }
 

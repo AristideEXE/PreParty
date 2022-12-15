@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Metier
 {
-    public class UtilisateurCRUD
+    public class UtilisateurManager
     {
         /// <summary>
         /// Insere un utilisateur dans la base de données
@@ -233,7 +233,7 @@ namespace Metier
                         while (reader.Read())
                         {
                             int idFete = reader.GetInt32(0);
-                            fetes.Add(FeteCRUD.GetById(idFete));
+                            fetes.Add(FeteManager.GetById(idFete));
                         }
                     }
                 }
@@ -265,7 +265,7 @@ namespace Metier
                         {
                             int idFete = reader.GetInt32(0);
                             int idOrganisateur = reader.GetInt32(1);
-                            Utilisateur organisateur = UtilisateurCRUD.GetById(idOrganisateur);
+                            Utilisateur organisateur = UtilisateurManager.GetById(idOrganisateur);
                             string nom = reader.GetString(2);
                             string description = reader.GetString(3);
                             string lieu = reader.GetString(4);
@@ -274,7 +274,7 @@ namespace Metier
                             DateTime finFete = reader.GetDateTime(7);
 
                             Fete fete = new Fete(idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete);
-                            fete.Invites = FeteCRUD.GetInvites(idFete);
+                            fete.Invites = FeteManager.GetInvites(idFete);
                             fetes.Add(fete);
                         }
                     }

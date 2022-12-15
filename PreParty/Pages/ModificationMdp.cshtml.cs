@@ -23,9 +23,10 @@ namespace PreParty.Pages
             string passwordConfirm = Request.Form["_passwordConfirm"];
             string hash = "";
 
+            //On vérifie que l'utilisateur a bien saisi l'ancien mdp du compte
             if (User.PasswordVerify(oldMdp))
             {
-                Console.WriteLine("Bon mdp");
+                //On vérifie que le nouveau mdp et la confirmation sont égales et supérieur à 8 carcatères
                 if ((password == passwordConfirm) && (password.Length >= 8))
                 {
                     hash = Utilisateur.GetHashString(password);

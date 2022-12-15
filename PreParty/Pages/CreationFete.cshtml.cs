@@ -1,3 +1,4 @@
+using Metier;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,6 +7,11 @@ namespace PreParty.Pages
     public class CreationFeteModel : PageModel
     {
         private string dateAjd;
+        private List<Utilisateur> invites = new List<Utilisateur>();
+       
+        private Utilisateur dernierInvite = null;
+
+        public Utilisateur DernierInvite => dernierInvite;
         public string DateAjd
         {
             get { return dateAjd; }
@@ -17,6 +23,8 @@ namespace PreParty.Pages
         public void OnGet()
         {
             this.dateAjd = DateTime.Now.ToString("yyyy-MM-dd");
+
+
         }
 
         public void OnPost()
@@ -51,5 +59,6 @@ namespace PreParty.Pages
 
             //Insert les données
         }
+
     }
 }

@@ -13,7 +13,6 @@
     <div class="row">
         <!--Formulaire des informations principales de la fête : -->
         <div class="col-md-6">
-                
                 <div class="p-4 shadow rounded">
                     <div class="form-group">
                         <label for="inputNom">Nom de la fête :</label>
@@ -83,9 +82,40 @@
                     <h2>
                         Invités
                         <a href="#">
-                            <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
+                            <span class="material-symbols-outlined bg-success text-white rounded-circle" >add</span>
                         </a>
                     </h2>
+
+                    <!-- Button trigger popup -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutInvite">
+                        Ajouter un invité
+                    </button>
+
+                    <!-- Popup -->
+                    <div class="modal fade" id="ajoutInvite" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un invité</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post">
+                                        <input type="search" placeholder="email@exemple.fr" class="form-control" name="email" id="email"/>
+                                        <input type="submit" class="btn btn-primary" value="Chercher"/>
+                                    </form>      
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
                     <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
                         @for (int i = 0; i < 20; i++)
                         {

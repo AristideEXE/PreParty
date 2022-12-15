@@ -5,88 +5,159 @@
 @{
     ViewData["Title"] = "Fête";
     <div class="row">
-            <div class="col-md">
-                <div class="p-4 my-3 shadow rounded">
-                    <h1>@Model.Fete.Nom</h1>
-                    <p>@Model.Fete.Description</p>
-                    <p>Organisateur : @Model.Fete.Organisateur.Prenom @Model.Fete.Organisateur.Nom</p>
-                </div>
-                <div class="p-4 my-3 shadow rounded">
-                    <h2>Date</h2>
-                    <div class="row p-2">
-                        <div class="col border-end">
-                            <p class="display-4">Début</p>
-                            <p>@Model.Fete.DebutFete</p>
-                        </div>
-                        <div class="col">
-                            <p class="display-4">Fin</p>
-                            <p>@Model.Fete.FinFete</p>
-                        </div>
+        <div class="col-md">
+            <div class="p-4 my-3 shadow rounded">
+                <h1>@Model.Fete.Nom</h1>
+                <p>@Model.Fete.Description</p>
+                <p>Organisateur : @Model.Fete.Organisateur.Prenom @Model.Fete.Organisateur.Nom</p>
+            </div>
+            <div class="p-4 my-3 shadow rounded">
+                <h2>Date</h2>
+                <div class="row p-2">
+                    <div class="col border-end">
+                        <p class="display-4">Début</p>
+                        <p>@Model.Fete.DebutFete</p>
+                    </div>
+                    <div class="col">
+                        <p class="display-4">Fin</p>
+                        <p>@Model.Fete.FinFete</p>
                     </div>
                 </div>
-                <div class="p-4 my-3 shadow rounded">
-                    <p>@Model.Fete.Lieu</p>
-                    <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=5.061363279819489%2C47.32134510903253%2C5.063873827457428%2C47.322550582764045&amp;layer=mapnik&amp;marker=47.3219470%2C5.0629554"></iframe>
-
-                </div>
             </div>
+            <div class="p-4 my-3 shadow rounded">
+                <p>@Model.Fete.Lieu</p>
+                <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=5.061363279819489%2C47.32134510903253%2C5.063873827457428%2C47.322550582764045&amp;layer=mapnik&amp;marker=47.3219470%2C5.0629554"></iframe>
 
-            <div class="col-md">
-                <div class="p-4 my-3 shadow rounded">
-                    <h2>
-                        Invités
-                        @if (Model.EstOrganisateur){
-                            <a href="#">
+            </div>
+        </div>
+
+        <div class="col-md">
+            <div class="p-4 my-3 shadow rounded">
+                <h2>
+                    Invités
+                    @if (Model.EstOrganisateur){
+                        <!-- Button trigger popup -->
+                        <button type="button" class="rounded-full bg-success p-2" data-bs-toggle="modal" data-bs-target="#ajoutInvites">
                             <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
-                        </a>
+                        </button>
                     }
-                    </h2>
-                    <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
-                        @foreach (Utilisateur invite in Model.Fete.Invites)
-                    {
-                            <div class="row bg-light rounded my-2 p-2 invite align-items-center rounded">
-                                <div class="col"><img src="imgs/femme.png" width="60px" class=""/></div>
-                                <div class="col-5 text-center">@invite.Prenom @invite.Nom</div>
-                                @if (Model.EstOrganisateur)
+                </h2>
+                <!-- Popup -->
+                <div class="modal" id="ajoutInvites" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ajouter un invité</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" name="formAddInvites">
+                                    <input type="text" placeholder="Recherche (par nom, prénom ou adresse mail)" class="form-control" name="recherche" id="recherche" />
+                                    <br />
+                                    <input type="submit" class="btn btn-primary" value="Rechercher" name="submitAddInvite" />
+                                </form>
+                                @foreach (Utilisateur utilisateur in Model.SearchInvites)
                                 {
-                                    <div class="col">
-                                        <a class="btn btn-primary" href="?fete=@Model.Fete.IdFete&removeInvite=@invite.IdUtilisateur">Supprimer</a>
-                                    </div>
+                                    <a href="?fete=@Model.Fete.IdFete&addInvite=@utilisateur.IdUtilisateur" class="text-decoration-none text-black">
+                                        <div class="row bg-light rounded my-2 p-2 invite align-items-center rounded">
+                                            <div class="col"><img src="imgs/femme.png" width="60px" class="" /></div>
+                                            <div class="col-5 text-center">@utilisateur.Prenom @utilisateur.Nom</div>
+                                        </div>
+                                    </a>
+                                    
                                 }
                             </div>
-                    }
+                        </div>
                     </div>
                 </div>
-                <div class="p-4 my-3 shadow rounded">
-                    <h2>Budget par personne</h2>
-                    <p>17,5 €</p>
-                    <a href="#" class="btn btn-primary">Voir les dépenses</a>
-                    <a href="#" class="btn btn-primary">Modifier</a>
-                </div>
-            </div>
 
+                @if (Model.SearchInvites.Count > 0)
+                {
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $("#ajoutInvites").modal("show");
+                        });
+                    </script>
+                }
 
-
-
-            <div class="col-md">
-                <div class="p-4 my-3 shadow rounded">
-                    <h2>Posts</h2>
-                    <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
-                        @if (Model.Fete.Posts.Count == 0){
-                            <p>Aucun post pour le moment</p>
-                        }
-                        else{
-                            @foreach (Post post in Model.Fete.Posts){
-                            <div class="bg-light rounded p-3 my-3">
-                                <h3>@post.Titre</h3>
-                                <p>@post.datePost</p>
-                                <p>@post.Contenu</p>
-                            </div>
+                <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
+                    @foreach (Utilisateur invite in Model.Fete.Invites)
+                {
+                        <div class="row bg-light rounded my-2 p-2 invite align-items-center rounded">
+                            <div class="col"><img src="imgs/femme.png" width="60px" class=""/></div>
+                            <div class="col-5 text-center">@invite.Prenom @invite.Nom</div>
+                            @if (Model.EstOrganisateur)
+                            {
+                                <div class="col">
+                                    <a class="btn btn-primary" href="?fete=@Model.Fete.IdFete&removeInvite=@invite.IdUtilisateur">Supprimer</a>
+                                </div>
                             }
-                        }
-                    </div>
+                        </div>
+                }
                 </div>
             </div>
+            <div class="p-4 my-3 shadow rounded">
+                <h2>Budget par personne</h2>
+                <p>17,5 €</p>
+                <a href="#" class="btn btn-primary">Voir les dépenses</a>
+                <a href="#" class="btn btn-primary">Modifier</a>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md">
+            <div class="p-4 my-3 shadow rounded">
+                <h2>Posts</h2>
+
+                @if (Model.EstOrganisateur){
+                    <!-- Button trigger popup -->
+                    <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#ajoutPost">
+                        Créer un post
+                    </button>
+
+                    <!-- Popup -->
+                    <div class="modal fade" id="ajoutPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Créer un post</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" name="formAddPost">
+                                        <input type="text" placeholder="Titre du post" class="form-control" name="titre" id="titre" />
+                                        <br/>
+                                        <textarea class="form-control" name="contenu" id="contenu" placeholder="Contenu du post"></textarea>
+                                        <br/>
+                                        <input type="submit" class="btn btn-primary" value="Créer" name="submitAddPost"/>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                    
+                @if (Model.Fete.Posts.Count == 0){
+                    <p>Aucun post pour le moment</p>
+                }
+                else{
+                    <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
+
+                        @foreach (Post post in Model.Fete.Posts){
+                        <div class="bg-light rounded p-3 my-3">
+                            <h3>@post.Titre</h3>
+                            <p>@post.DatePost</p>
+                            <p>@post.Contenu</p>
+                        </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 
     @if (!Model.EstOrganisateur)

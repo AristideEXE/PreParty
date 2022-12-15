@@ -285,6 +285,31 @@ namespace Metier
             return posts;
         }
 
+        public static void CreatePostWithoutId(Post post, int idFete)
+        {
+            string query = ("INSERT INTO post (idFete, titre, datePost, contenu) VALUES (@idFete, @titre, @datePost, @contenu)");
+            try
+            {
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idFete", idFete);
+                    cmd.Parameters.AddWithValue("@titre", post.Titre);
+                    cmd.Parameters.AddWithValue("@datePost", post.DatePost);
+                    cmd.Parameters.AddWithValue("@contenu", post.Contenu);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
         public static void Update(Fete fete)
         {
             try

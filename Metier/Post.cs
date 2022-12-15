@@ -10,15 +10,22 @@ namespace Metier
     {
         public int IdPost { get; set; }
         public string Titre { get; set; }
-        public DateTime datePost { get; set; }
+        public DateTime DatePost { get; set; }
         public string Contenu { get; set; }
 
         public Post(int idPost, string titre, DateTime datePost, string contenu)
         {
             IdPost = idPost;
             Titre = titre;
-            this.datePost = datePost;
+            DatePost = datePost;
             Contenu = contenu;
+        }
+
+        public Post(string titre, string contenu)
+        {
+            Titre = titre;
+            Contenu = contenu;
+            DatePost = DateTime.Now;
         }
     }
 }

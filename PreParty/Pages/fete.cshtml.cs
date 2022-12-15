@@ -50,6 +50,15 @@ namespace PreParty.Pages
                                         fete.RemoveInvite(idInvite);
                                     }
                                 }
+                                // Si on essaye de quitter la fête (sans être organisateur)
+                                if (HttpContext.Request.Query.ContainsKey("quitterFete"))
+                                {
+                                    if (!EstOrganisateur)
+                                    {
+                                        fete.QuitterFete(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur);
+                                        Response.Redirect("Index");
+                                    }
+                                }
                             }
                             else
                             {

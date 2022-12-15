@@ -58,12 +58,17 @@ namespace PreParty.Pages
 
         public int JourFin => jourFin;
 
+        private string moisE; 
+
+        public string MoisE => moisE;
+
         
 
         public void OnGet()
         {
             this.dateAjd = DateTime.Now.ToString("dd/mm/yyyy");
             this.mois = Int32.Parse(DateTime.Now.ToString("MM"));
+            this.moisE = DateTime.Now.ToString("MMMM");
             this.annee = DateTime.Now.ToString("yyyy");
             fetes = FeteManager.ReadAll();
             chargeFete();

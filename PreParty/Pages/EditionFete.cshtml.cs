@@ -42,6 +42,30 @@ namespace PreParty.Pages
 
         public void OnGet()
         {
+            try
+            {
+                if (HttpContext.Request.Query.ContainsKey("fete"))
+                {
+                    int idFete = int.Parse(HttpContext.Request.Query["fete"]);
+                    if (FeteManager.FeteExists(idFete))
+                    {
+                        this.fete = FeteManager.GetById(idFete);
+                    }
+                    else
+                    {
+                        Response.Redirect("Index");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Index");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             this.dateAjd = DateTime.Now.ToString("o");
             string dateTemp = "";
             for (int i = 0; i < 16; i++)
@@ -106,6 +130,7 @@ namespace PreParty.Pages
             Fete.Prix = p;
 
             FeteManager.Update(Fete);
+            Response.Redirect("Fete?fete=" + Fete.IdFete);
         }
     }
 }

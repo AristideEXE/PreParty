@@ -18,14 +18,14 @@ namespace Metier
         {
             try
             {
-                string query = "INSERT INTO utilisateur (organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix) VALUES (@organisateur, @nom, @description, @lieu, @coordonneesGPS, @debutFete, @finFete, @prix)";
+                string query = "INSERT INTO fete (organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix) VALUES (@organisateur, @nom, @description, @lieu, @coordonneesGPS, @debutFete, @finFete, @prix)";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
                     MySqlCommand cmd = conn.CreateCommand();
 
                     cmd.CommandText = query;
-                    cmd.Parameters.AddWithValue("@organisateur", fete.Organisateur);
+                    cmd.Parameters.AddWithValue("@organisateur", fete.Organisateur.IdUtilisateur);
                     cmd.Parameters.AddWithValue("@nom", fete.Nom);
                     cmd.Parameters.AddWithValue("@description", fete.Description);
                     cmd.Parameters.AddWithValue("@lieu", fete.Lieu);

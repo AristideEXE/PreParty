@@ -7,7 +7,7 @@ namespace PreParty.Pages
     public class CreationFeteModel : PageModel
     {
         
-        private string dateAjd;
+        private string dateAjd="";
         public string DateAjd
         {
             get { return dateAjd; }
@@ -44,7 +44,6 @@ namespace PreParty.Pages
             int p = Convert.ToInt32(prix);
 
             int result = DateTime.Compare(dDebut, dFin);
-            Console.WriteLine(result);
             //Si la date de fin est plus tôt que la date de début
             if(result > 0)
             {
@@ -59,8 +58,9 @@ namespace PreParty.Pages
             //Création de la fête (objet)
             Fete fete = new Fete(nomFete,UtilisateurLogin.Instance.GetUtilisateur(), adresse, gps, dDebut, dFin, description, p);
             FeteManager.CreateWithoutId(fete);
+            Response.Redirect("Index");
 
-            
+
 
             //Insert les données
         }

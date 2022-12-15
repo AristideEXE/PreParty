@@ -48,7 +48,6 @@ namespace PreParty.Pages
             //Si la date de fin est plus tôt que la date de début
             if(result > 0)
             {
-                Console.WriteLine("Yes t'es dans le if");
                 string dTemp = dateFin;
                 dateFin = dateDebut;
                 dateDebut = dTemp;
@@ -59,6 +58,8 @@ namespace PreParty.Pages
 
             //Création de la fête (objet)
             Fete fete = new Fete(nomFete, adresse, gps, dDebut, dFin, description, p);
+
+
             
 
             //Insert les données

@@ -128,6 +128,7 @@ namespace PreParty.Pages
             Fete.FinFete = dFin;
             Fete.Description = description;
             Fete.Prix = p;
+            Fete.IdFete = int.Parse(HttpContext.Request.Query["fete"]);
 
             FeteManager.Update(Fete);
             Response.Redirect("Fete?fete=" + Fete.IdFete);

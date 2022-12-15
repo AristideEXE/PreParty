@@ -318,6 +318,57 @@ namespace Metier
             }
         }
 
+        public static void UpdateInfo(Utilisateur utilisateur)
+        {
+            try
+            {
+                string query = "UPDATE utilisateur SET nom = @nom, prenom = @prenom, dateNaissance = @dateNaissance, mail = @mail WHERE idUtilisateur = @idUtilisateur";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
+                    cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
+                    cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
+                    cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
+                    cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
+        public static void UpdateMdp(Utilisateur utilisateur,string hash)
+        {
+            try
+            {
+                string query = "UPDATE utilisateur SET hash = @hash WHERE idUtilisateur = @idUtilisateur";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+
+                    cmd.Parameters.AddWithValue("@hash", hash);
+                    cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
         /// <summary>
         /// Supprime un utilisateur de la base de données
         /// </summary>
@@ -342,6 +393,47 @@ namespace Metier
             {
                 Console.WriteLine("Une erreur est survenue : " + e);
             }
+        }
+
+        /// <summary>
+        /// Permet une recherche par nom, prénom ou adresse mail
+        /// </summary>
+        /// <param name="recherche"></param>
+        public static List<Utilisateur> Recherche (string recherche)
+        {
+            List<Utilisateur> utilisateurs = new List<Utilisateur>();
+            try
+            {
+                string query = "SELECT idUtilisateur, nom, prenom, dateNaissance, mail, hash FROM utilisateur WHERE prenom LIKE @recherche OR nom LIKE @recherche or mail LIKE @recherche";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@recherche", "%" + recherche + "%");
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idUtilisateur = reader.GetInt32(0);
+                            string nom = reader.GetString(1);
+                            string prenom = reader.GetString(2);
+                            DateTime dateNaissance = Convert.ToDateTime(reader.GetString(3));
+                            string mail = reader.GetString(4);
+                            string hash = reader.GetString(5);
+
+                            Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, dateNaissance, mail, hash);
+                            utilisateurs.Add(utilisateur);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return utilisateurs;
         }
     }
 }

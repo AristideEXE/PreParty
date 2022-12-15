@@ -1,0 +1,48 @@
+﻿@page
+@model PreParty.Pages.SupressionCompteModel
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Supression de votre compte</h1>
+    <p>Voulez-vous vraiment nous quitter ?</p>
+</div>
+
+<div class="container">
+
+    <div class="p-4 shadow rounded">
+
+        <div class="row justify-content-start">
+            <div class="col-md-10">
+                <h2 class="formTitre">Vous êtes sur de vouloir supprimer votre compte ?</h2>
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form method="post" name="IncritpionForm" onsubmit="return Valider()">
+
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            <input type="radio" class="form-check-input" id="checkoui" value="oui" name="choix">
+                            <label for="checkoui" class="col-md-3 col-form-label">Oui</label>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            <input type="radio" class="form-check-input" id="checknon" value="non" name="choix">
+                            <label for="checknon" class="col-md-3 col-form-label">Non</label>
+                        </div>
+                    </div>
+
+                    <br />               
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <button type="submit" class="btnStyleViolet"><span>Valider</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>

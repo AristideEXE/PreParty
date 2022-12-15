@@ -1,0 +1,91 @@
+﻿@page
+@model PreParty.Pages.ModificationMdpModel
+@{
+
+}
+<div class="text-center">
+    <h1 class="display-4">Modification du mot de passe</h1>
+    <p>Changez votre mot de passe secret</p>
+</div>
+
+<div class="container">
+
+    <div class="p-4 shadow rounded">
+
+        <div class="row justify-content-start">
+            <div class="col-md-5">
+                <h2 class="formTitre">Modification :</h2>
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form method="post" name="IncritpionForm" onsubmit="return Valider()">
+
+                    <div class="form-group row">
+                        <label for="inputOldMdp" class="col-md-3 col-form-label"><span class="rouge">*</span>Ancien mot de passe :</label>
+                        <div class="col-md-8">
+                            <input type="password" class="form-control" id="inputOldMdp" placeholder="Mot de passe" required name="_oldMdp">
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="form-group row">
+                        <label for="inputMdp" class="col-md-3 col-form-label"><span class="rouge">*</span>Nouveau Mot de passe :</label>
+                        <div class="col-md-8">
+                            <input type="password" class="form-control" id="inputMdp" placeholder="Mot de passe" required name="_password">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <label for="inputMdpConfirm" class="col-md-3 col-form-label"><span class="rouge">*</span>Confirmation du mot de passe :</label>
+                        <div class="col-md-8">
+                            <input type="password" class="form-control" id="inputMdpConfirm" placeholder="Confirmez votre mot de passe" required name="_passwordConfirm">
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <button type="submit" class="btnStyleViolet"><span>Enregistrer</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md">
+                <p class="champsObligatoires">
+                    * Champs obligatoires :
+                </p>
+                <p><a href="#">Réinitialiser le mot de passe</a></p>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        function Valider() {
+            var pass1 = document.forms["IncritpionForm"]["inputMdp"];
+            var pass2 = document.forms["IncritpionForm"]["inputMdpConfirm"];
+
+
+            if (pass1.value.length < 8) {
+                alert("Le mote de passe n'est pas assez long vous devez renseigner au moins 8 caractères");
+                pass1.focus();
+                return false;
+            }
+            if (pass1.value != pass2.value) {
+                alert("Veuillez renseigner le même mot de passe");
+                pass2.focus();
+                return false;
+            }
+
+        }
+    </script>

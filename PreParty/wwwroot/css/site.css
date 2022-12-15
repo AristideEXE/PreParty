@@ -36,7 +36,7 @@ body {
     color : red
 }
 
-button {
+.btnStyleViolet {
     display: inline-block;
     background-color: #7b38d8;
     border-radius: 10px;
@@ -51,32 +51,32 @@ button {
     margin: 2px;
 }
 
-button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
+.btnStyleViolet span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
 
-button span:after {
-    content: "\00bb";
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-}
+.btnStyleViolet span:after {
+        content: "\00bb";
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
 
-button:hover {
-    background-color: #f7c2f9;
-}
+.btnStyleViolet:hover {
+        background-color: #f7c2f9;
+    }
 
-button:hover span {
-    padding-right: 25px;
-}
+.btnStyleViolet:hover span {
+        padding-right: 25px;
+    }
 
-button:hover span:after {
-    opacity: 1;
-    right: 0;
-}
+.btnStyleViolet:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
 

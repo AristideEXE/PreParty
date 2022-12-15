@@ -166,4 +166,9 @@
             <a href="?fete=@Model.Fete.IdFete&quitterFete" class="btn btn-danger w-25 mx-auto">Quitter la fête</a>
         </div>
     }
+    @if (Model.EstOrganisateur){
+        <div class="text-center p-4">
+            <a href="EditionFete?fete=@Model.Fete.IdFete" class="btn btn-primary">Modifier la fête</a>
+        </div>
+    }
 }

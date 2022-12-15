@@ -1,0 +1,81 @@
+﻿@page
+@model PreParty.Pages.GestionCompteModel
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Gestion de compte</h1>
+    <p>Gérez votre compte !</p>
+</div>
+
+<div class="container">
+
+    <div class="p-4 shadow rounded">
+
+        <div class="row justify-content-start">
+            <div class="col-md-5">
+                <h2 class="formTitre">Vos informations :</h2>
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form method="post" name="IncritpionForm" onsubmit="return Valider()">
+
+                    <div class="form-group row">
+                        <label for="inputNom" class="col-md-3 col-form-label"><span class="rouge">*</span>Nom :</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="inputNom" placeholder="Entrez votre nom" value="@Model.User.Nom" required name="_nom">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <label for="inputPrenom" class="col-md-3 col-form-label"><span class="rouge">*</span>Prénom :</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="inputPrenom" placeholder="Entrez votre Prénom" value="@Model.User.Prenom" required name="_prenom">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <label for="inputDateNaissance" class="col-md-3 col-form-label"><span class="rouge">*</span>Date de naissance :</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" id="inputDateNaissance" required max="@Model.DateAjd" value="@Model.DateNiassance" name="_date_naissance">
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="form-group row">
+                        <label for="inputMail" class="col-md-3 col-form-label"><span class="rouge">*</span>Adresse mail :</label>
+                        <div class="col-md-8">
+                            <input type="email" class="form-control" id="inputMail" placeholder="Entrez votre adresse mail" value="@Model.User.Mail" required name="_email">
+                        </div>
+                    </div>
+               
+
+                    <br />
+                    <div class="row justify-content-center">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <button type="submit" class="btnStyleViolet"><span>Enregistrer</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md">
+                <p class="champsObligatoires">
+                    * Champs obligatoires :
+                </p>
+                <p><a href="ModificationMdp">Réinitialiser le mot de passe</a></p>
+            </div>
+        </div>
+
+    </div>

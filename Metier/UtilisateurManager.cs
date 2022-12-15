@@ -318,6 +318,57 @@ namespace Metier
             }
         }
 
+        public static void UpdateInfo(Utilisateur utilisateur)
+        {
+            try
+            {
+                string query = "UPDATE utilisateur SET nom = @nom, prenom = @prenom, dateNaissance = @dateNaissance, mail = @mail WHERE idUtilisateur = @idUtilisateur";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@nom", utilisateur.Nom);
+                    cmd.Parameters.AddWithValue("@prenom", utilisateur.Prenom);
+                    cmd.Parameters.AddWithValue("@dateNaissance", utilisateur.DateNaissance);
+                    cmd.Parameters.AddWithValue("@mail", utilisateur.Mail);
+                    cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
+        public static void UpdateMdp(Utilisateur utilisateur,string hash)
+        {
+            try
+            {
+                string query = "UPDATE utilisateur SET hash = @hash WHERE idUtilisateur = @idUtilisateur";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+
+                    cmd.Parameters.AddWithValue("@hash", hash);
+                    cmd.Parameters.AddWithValue("@idUtilisateur", utilisateur.IdUtilisateur);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
         /// <summary>
         /// Supprime un utilisateur de la base de données
         /// </summary>

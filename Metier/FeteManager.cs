@@ -14,9 +14,34 @@ namespace Metier
         /// Ajoute une fête dans la BDD;
         /// </summary>
         /// <param name="fete">La fête à ajouter</param>
-        public static void Create(Fete fete)
+        public static void CreateWithoutId(Fete fete)
         {
+            try
+            {
+                string query = "INSERT INTO fete (organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix) VALUES (@organisateur, @nom, @description, @lieu, @coordonneesGPS, @debutFete, @finFete, @prix)";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
 
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@organisateur", fete.Organisateur.IdUtilisateur);
+                    cmd.Parameters.AddWithValue("@nom", fete.Nom);
+                    cmd.Parameters.AddWithValue("@description", fete.Description);
+                    cmd.Parameters.AddWithValue("@lieu", fete.Lieu);
+                    cmd.Parameters.AddWithValue("@coordonneesGPS", fete.CoordonneesGPS);
+                    cmd.Parameters.AddWithValue("@debutFete", fete.DebutFete);
+                    cmd.Parameters.AddWithValue("@finFete", fete.FinFete);
+                    cmd.Parameters.AddWithValue("@prix", fete.Prix);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
         }
 
         /// <summary>
@@ -28,7 +53,7 @@ namespace Metier
             List<Fete> fetes = new List<Fete>();
             try
             {
-                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete";
+                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix FROM fete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
@@ -48,6 +73,7 @@ namespace Metier
                             string coordonneesGPS = reader.GetString(5);
                             DateTime debutFete = reader.GetDateTime(6);
                             DateTime finFete = reader.GetDateTime(7);
+                            int prix = reader.GetInt32(8);
 
                             Fete fete = new Fete(idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete);
                             fete.Invites = GetInvites(idFete);
@@ -97,7 +123,7 @@ namespace Metier
             Fete fete = new Fete(idFete);
             try
             {
-                string query = "SELECT organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete WHERE idFete = @idFete";
+                string query = "SELECT organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix FROM fete WHERE idFete = @idFete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
@@ -119,6 +145,7 @@ namespace Metier
                         fete.FinFete = reader.GetDateTime(6);
                         fete.Invites = GetInvites(idFete);
                         fete.Posts = GetFetePosts(idFete);
+                        fete.Prix = reader.GetInt32(7);
                     }
                 }
             }
@@ -273,6 +300,35 @@ namespace Metier
                     cmd.Parameters.AddWithValue("@titre", post.Titre);
                     cmd.Parameters.AddWithValue("@datePost", post.DatePost);
                     cmd.Parameters.AddWithValue("@contenu", post.Contenu);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
+        public static void Update(Fete fete)
+        {
+            try
+            {
+                string query = "UPDATE fete SET nom = @nom, description = @description, lieu = @lieu, coordonneesGPS = @coordonneesGPS, debutFete = @debutFete, finFete = @finFete, prix = @prix WHERE idFete = @idFete";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@nom", fete.Nom);
+                    cmd.Parameters.AddWithValue("@description", fete.Description);
+                    cmd.Parameters.AddWithValue("@lieu", fete.Lieu);
+                    cmd.Parameters.AddWithValue("@coordonneesGPS", fete.CoordonneesGPS);
+                    cmd.Parameters.AddWithValue("@debutFete", fete.DebutFete);
+                    cmd.Parameters.AddWithValue("@finFete", fete.FinFete);
+                    cmd.Parameters.AddWithValue("@prix", fete.Prix);
+                    cmd.Parameters.AddWithValue("@idFete", fete.IdFete);
 
                     cmd.ExecuteNonQuery();
                 }

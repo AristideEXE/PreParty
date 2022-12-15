@@ -338,5 +338,27 @@ namespace Metier
                 Console.WriteLine("Une erreur est survenue : " + e);
             }
         }
+
+        public static void Delete(int idFete)
+        {
+            try
+            {
+                string query = "DELETE FROM fete WHERE idFete = @idFete";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idFete", idFete);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
     }
 }

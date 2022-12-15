@@ -39,9 +39,10 @@
             FinFete = finFete;
         }
 
-        public Fete(string nom, string adresse, string gps, DateTime debutFete, DateTime finFete, string description,int prix)
+        public Fete(string nom, Utilisateur organisateur, string adresse, string gps, DateTime debutFete, DateTime finFete, string description,int prix)
         {
             Nom = nom;
+            Organisateur = organisateur;
             Lieu = adresse;
             CoordonneesGPS = gps;
             DebutFete = debutFete;

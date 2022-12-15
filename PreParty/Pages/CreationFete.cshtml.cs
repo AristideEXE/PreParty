@@ -57,8 +57,8 @@ namespace PreParty.Pages
             dFin = Convert.ToDateTime(dateFin);
 
             //Création de la fête (objet)
-            Fete fete = new Fete(nomFete, adresse, gps, dDebut, dFin, description, p);
-
+            Fete fete = new Fete(nomFete,UtilisateurLogin.Instance.GetUtilisateur(), adresse, gps, dDebut, dFin, description, p);
+            FeteManager.CreateWithoutId(fete);
 
             
 

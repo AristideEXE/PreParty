@@ -39,14 +39,14 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputDateDebut">Date Début</label>
-                                <input type="datetime-local" min="2022-12-14T19:42" class="form-control" id="inputDateDebut" required name="_dateDebut">
+                                <input type="datetime-local" min="@Model.DateAjd" class="form-control" id="inputDateDebut" required name="_dateDebut">
                             </div>
                         </div>
 
                         <div class="col-md">
                             <div class="form-group">
                                 <label for="inputDateFin">Date de fin</label>
-                                <input type="datetime-local" class="form-control" id="inputDateFin" required name="_dateFin">
+                                <input type="datetime-local" class="form-control" min="@Model.DateAjd" id="inputDateFin" required name="_dateFin">
                             </div>
                         </div>
                  

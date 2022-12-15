@@ -13,6 +13,8 @@
         public DateTime DebutFete { get; set; }
         public DateTime FinFete { get; set; }
 
+        public int Prix { get; set; }
+
         public List<Utilisateur> Invites { get; set; }
         public List<Post> Posts { get; set; }
 
@@ -35,6 +37,17 @@
             CoordonneesGPS = coordonneesGPS;
             DebutFete = debutFete;
             FinFete = finFete;
+        }
+
+        public Fete(string nom, string adresse, string gps, DateTime debutFete, DateTime finFete, string description,int prix)
+        {
+            Nom = nom;
+            Lieu = adresse;
+            CoordonneesGPS = gps;
+            DebutFete = debutFete;
+            FinFete = finFete;
+            Description = description;
+            Prix = prix;
         }
 
         #endregion

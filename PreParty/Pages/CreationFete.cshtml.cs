@@ -1,3 +1,4 @@
+using Metier;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,7 +6,7 @@ namespace PreParty.Pages
 {
     public class CreationFeteModel : PageModel
     {
-        /*
+        
         private string dateAjd;
         public string DateAjd
         {
@@ -14,10 +15,16 @@ namespace PreParty.Pages
             {
                 this.dateAjd = value;
             }
-        }*/
+        }
         public void OnGet()
         {
-            //this.dateAjd = DateTime.Now.ToString("o");
+            this.dateAjd = DateTime.Now.ToString("o");
+            string dateTemp = "";
+            for (int i = 0; i < 16; i++)
+            {
+                dateTemp += dateAjd[i];
+            }
+            this.dateAjd = dateTemp;
         }
 
         public void OnPost()
@@ -30,23 +37,29 @@ namespace PreParty.Pages
             string description = Request.Form["_description"];
             var prix = Request.Form["_prix"];
 
-            Console.WriteLine(nomFete);
-            Console.WriteLine(adresse);
-            Console.WriteLine(gps);     //vérifier not null à vérifier
-            Console.WriteLine(dateDebut);
-            Console.WriteLine(dateFin);
-            Console.WriteLine(description);  //description not null àvérifier
-            Console.WriteLine(prix);
+            //Convertion des données
+            DateTime dDebut = Convert.ToDateTime(dateDebut);
+            DateTime dFin = Convert.ToDateTime(dateFin);
+            
+            int p = Convert.ToInt32(prix);
 
-            if (gps != null)
+            int result = DateTime.Compare(dDebut, dFin);
+            Console.WriteLine(result);
+            //Si la date de fin est plus tôt que la date de début
+            if(result > 0)
             {
-                //To do
+                Console.WriteLine("Yes t'es dans le if");
+                string dTemp = dateFin;
+                dateFin = dateDebut;
+                dateDebut = dTemp;
             }
 
-            if (description != null)
-            {
-                //To do
-            }
+            dDebut = Convert.ToDateTime(dateDebut);
+            dFin = Convert.ToDateTime(dateFin);
+
+            //Création de la fête (objet)
+            Fete fete = new Fete(nomFete, adresse, gps, dDebut, dFin, description, p);
+            
 
             //Insert les données
         }

@@ -216,12 +216,18 @@ namespace Metier
             }
         }
 
+
+        /// <summary>
+        /// Renvoie les posts d'une fête
+        /// </summary>
+        /// <param name="idFete">La fête</param>
+        /// <returns>Les postes de la fêtes</returns>
         public static List<Post> GetFetePosts(int idFete)
         {
             List<Post> posts = new List<Post>();
             try
             {
-                string query = "SELECT (idPost, titre, datePost, contenu) FROM post WHERE idFete = @idFete";
+                string query = "SELECT idPost, titre, datePost, contenu FROM post WHERE idFete = @idFete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();

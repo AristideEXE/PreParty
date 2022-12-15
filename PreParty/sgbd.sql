@@ -39,7 +39,7 @@ create table post(
 	datePost datetime default current_date,
 	contenu text,
 	foreign key (idFete) references fete(idFete)
-)
+);
 
 
 CREATE TABLE Depense(

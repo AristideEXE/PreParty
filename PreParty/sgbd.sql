@@ -31,6 +31,15 @@ CREATE TABLE invites(
    PRIMARY KEY(idFete, idUtilisateur)
 );
 
+create table post(
+	idPost int primary key,
+	idFete int,
+	titre varchar(255),
+	datePost datetime default current_date,
+	contenu text,
+	foreign key (idFete) references fete(idFete)
+)
+
 
 CREATE TABLE Depense(
    idDepense int,
@@ -58,4 +67,4 @@ insert into fete values (1,1, 'Anniversaire toto', 'Venez à ma superbe fête d'
 
 insert into invites values (1,2),(1,3), (2,1),(2,5),(2,6), (3,4), (3,5), (3,6), (4,2);
 
-
+insert into post (idPost, idFete, titre, contenu) values (1, 2, 'Matelas', "J'ai qu'un seul matelas chez moi il faut en emmener + sacs de couchages / duvets si possible");

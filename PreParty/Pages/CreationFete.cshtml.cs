@@ -5,6 +5,7 @@ namespace PreParty.Pages
 {
     public class CreationFeteModel : PageModel
     {
+        /*
         private string dateAjd;
         public string DateAjd
         {
@@ -13,10 +14,10 @@ namespace PreParty.Pages
             {
                 this.dateAjd = value;
             }
-        }
+        }*/
         public void OnGet()
         {
-            this.dateAjd = DateTime.Now.ToString("yyyy-MM-dd");
+            //this.dateAjd = DateTime.Now.ToString("o");
         }
 
         public void OnPost()
@@ -24,18 +25,16 @@ namespace PreParty.Pages
             string nomFete = Request.Form["_nom_fete"];
             string adresse = Request.Form["_adresse"];
             string gps = Request.Form["_gps"];
-            string date = Request.Form["_date"];
-            var hDebut = Request.Form["_hdebut"];
-            var hFin = Request.Form["_hfin"];
+            string dateDebut = Request.Form["_dateDebut"];
+            string dateFin = Request.Form["_dateFin"];
             string description = Request.Form["_description"];
             var prix = Request.Form["_prix"];
 
             Console.WriteLine(nomFete);
             Console.WriteLine(adresse);
             Console.WriteLine(gps);     //vérifier not null à vérifier
-            Console.WriteLine(date);
-            Console.WriteLine(hDebut);
-            Console.WriteLine(hFin);
+            Console.WriteLine(dateDebut);
+            Console.WriteLine(dateFin);
             Console.WriteLine(description);  //description not null àvérifier
             Console.WriteLine(prix);
 

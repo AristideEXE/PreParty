@@ -34,7 +34,8 @@ namespace PreParty.Pages
             //Insertion de la base de donnée à faire
             if((password == passwordConfirm) && (password.Length >= 8)) {
                 Utilisateur user = new Utilisateur(nom, prenom, Convert.ToDateTime(dateNaissance), email, Utilisateur.GetHashString(password));
-                UtilisateurCRUD.CreateWithoutId(user); 
+                UtilisateurCRUD.CreateWithoutId(user);
+                Response.Redirect("Connexion");
             }
             else
             {

@@ -13,6 +13,12 @@ namespace PreParty.Pages
             get { return fete; }
         }
 
+        private List<Utilisateur> searchInvites = new List<Utilisateur>();
+        public List<Utilisateur> SearchInvites
+        {
+            get { return searchInvites; }
+        }
+
         public bool EstOrganisateur
         {
             get
@@ -49,9 +55,20 @@ namespace PreParty.Pages
                                     {
                                         fete.RemoveInvite(idInvite);
                                     }
+                                    Response.Redirect("Fete?fete=" + idFete);
+                                }
+                                // Si on essaye d'ajouter un invité à la fête
+                                else if (HttpContext.Request.Query.ContainsKey("addInvite"))
+                                {
+                                    int idInvite = int.Parse(HttpContext.Request.Query["addInvite"]);
+                                    if (EstOrganisateur)
+                                    {
+                                        fete.AddInvite(idInvite);
+                                    }
+                                    Response.Redirect("Fete?fete=" + idFete);
                                 }
                                 // Si on essaye de quitter la fête (sans être organisateur)
-                                if (HttpContext.Request.Query.ContainsKey("quitterFete"))
+                                else if (HttpContext.Request.Query.ContainsKey("quitterFete"))
                                 {
                                     if (!EstOrganisateur)
                                     {
@@ -83,6 +100,29 @@ namespace PreParty.Pages
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+            }
+        }
+
+        public void OnPost()
+        {
+            // Si on ajoute un post
+            if (Request.Form.ContainsKey("submitAddPost"))
+            {
+                int idFete = int.Parse(HttpContext.Request.Query["fete"]);
+                string titre = Request.Form["titre"];
+                string contenu = Request.Form["contenu"];
+
+                Post post = new Post(titre, contenu);
+                FeteManager.CreatePostWithoutId(post, idFete);
+                Response.Redirect("Fete?fete=" + idFete);
+            }
+            // Si on rajoute un invité
+            if (Request.Form.ContainsKey("submitAddInvite"))
+            {
+                string recherche = Request.Form["recherche"];
+                searchInvites = UtilisateurManager.Recherche(recherche);
+                int idFete = int.Parse(HttpContext.Request.Query["fete"]);
+                this.fete = FeteManager.GetById(idFete);
             }
         }
     }

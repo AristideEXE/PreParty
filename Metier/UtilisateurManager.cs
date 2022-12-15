@@ -343,5 +343,46 @@ namespace Metier
                 Console.WriteLine("Une erreur est survenue : " + e);
             }
         }
+
+        /// <summary>
+        /// Permet une recherche par nom, prénom ou adresse mail
+        /// </summary>
+        /// <param name="recherche"></param>
+        public static List<Utilisateur> Recherche (string recherche)
+        {
+            List<Utilisateur> utilisateurs = new List<Utilisateur>();
+            try
+            {
+                string query = "SELECT idUtilisateur, nom, prenom, dateNaissance, mail, hash FROM utilisateur WHERE prenom LIKE @recherche OR nom LIKE @recherche or mail LIKE @recherche";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@recherche", "%" + recherche + "%");
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idUtilisateur = reader.GetInt32(0);
+                            string nom = reader.GetString(1);
+                            string prenom = reader.GetString(2);
+                            DateTime dateNaissance = Convert.ToDateTime(reader.GetString(3));
+                            string mail = reader.GetString(4);
+                            string hash = reader.GetString(5);
+
+                            Utilisateur utilisateur = new Utilisateur(idUtilisateur, nom, prenom, dateNaissance, mail, hash);
+                            utilisateurs.Add(utilisateur);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return utilisateurs;
+        }
     }
 }

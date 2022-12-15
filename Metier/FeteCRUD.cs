@@ -64,6 +64,29 @@ namespace Metier
         }
 
         /// <summary>
+        /// Renvoie true si la fête existe et false sinon
+        /// </summary>
+        /// <param name="idFete">L'identifiant de la fête</param>
+        /// <returns></returns>
+        public static bool FeteExists(int idFete)
+        {
+            string query = "SELECT * FROM fete WHERE idFete = @idFete";
+            using (MySqlConnection conn = Connexion.GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@idFete", idFete);
+
+                using (DbDataReader reader = cmd.ExecuteReader())
+                {
+                    return reader.HasRows;
+                }
+            }
+        }
+
+        /// <summary>
         /// Renvoie une fête
         /// </summary>
         /// <param name="idFete">L'identifiant de la fête</param>

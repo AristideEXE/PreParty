@@ -1,6 +1,7 @@
 using Metier;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Org.BouncyCastle.Crypto.Tls;
 using System.Data;
 
 namespace PreParty.Pages
@@ -9,27 +10,36 @@ namespace PreParty.Pages
     {
         public void OnGet()
         {
+            if (UtilisateurLogin.Instance.IsConnected)
+            {
+                UtilisateurLogin.Instance.Disconnect();
+            }
+            else
+            {
+                //UtilisateurLogin.Instance.Connect(UtilisateurCRUD.GetById(1));
+            }
         }
 
         public void OnPost()
         {
             string adresse = Request.Form["email"];
             string mdp = Request.Form["mdp"];
-            if (adresse != null && mdp != null)
+            Utilisateur user = UtilisateurCRUD.GetByMail(adresse);
+            if(user != null)
             {
-                //String sql = "SELECT motDePasse FROM utilisateur WHERE adresse = " + adresse;
-                //MySqlDataReader r = BDD.Select(sql);
-                //string s = r.GetValue(r.GetOrdinal("motdepasse")).ToString();
-                //if (s.Equals(mdp))
-                //{
-                //    //C'est bon
-                //}
-
-
+                if (user.PasswordVerify(mdp)) {
+                    UtilisateurLogin.Instance.Connect(user);
+                    Response.Redirect("Index");
+                }
+                else
+                {
+                    Console.WriteLine("mauvais mdp");
+                }
+                
             }
             else
             {
-                
+                Console.WriteLine("oups trompé de personne");
             }
 
         }

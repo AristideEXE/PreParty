@@ -1,28 +1,67 @@
 ﻿@page
+@using Metier;
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Accueil";
 }
 
 <div class="text-center">
-    <h1 class="display-4 mt-4">Accueil</h1>
     @*Si on est connecté*@
-    @if (true){
-        @for (int i = 0; i < 5; i++){
-            <div class="p-4 my-4 shadow rounded row">
-                <div class="col-3 border-end p-2 align-self-center">
-                    <p>Organisateur : Aristide Proriol</p>
-                    <img src="imgs/homme (1).png" alt="" class="w-50" />
-                </div>
-                <div class="col align-self-center px-4 py-1 text-start">
-                    <h2 class="text-left">Ma superbe fête</h2>
-                    <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra felis et est blandit, eu bibendum tellus consequat. Praesent scelerisque, est sed imperdiet tempor, turpis tortor dapibus augue, vitae laoreet felis elit sed nisl. Duis non arcu nec felis molestie volutpat.</p>
-                    <p>Lieu : 78 boulevard de strasbourg</p>
-                    <p>Début : 19/11/2004 17:00:00
-                    <br/>
-                    Fin : 20/11/2004 05:00:00</p>
-                </div>
+    @if (UtilisateurLogin.Instance.IsConnected){
+        <h1 class="display-4 py-4">Vos prochaines fêtes</h1>
+        <div class="row">
+            <div class="col-md p-4">
+                <h2>Vos invitations</h2>
+                @foreach (Fete fete in UtilisateurCRUD.GetInvitations(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
+                {
+                    <a href="Fete?fete=@fete.IdFete" class="text-decoration-none text-black">
+                        <div class="p-4 my-4 shadow rounded row">
+                            <div class="col-3 border-end p-2 align-self-center">
+                                <p>Organisateur : @fete.Organisateur.Prenom @fete.Organisateur.Nom</p>
+                                <img src="imgs/homme (1).png" alt="" class="w-50" />
+                            </div>
+                            <div class="col align-self-center px-4 py-1 text-start">
+                                <h3 class="text-left">@fete.Nom</h3>
+                                <p class="text-left">@fete.Description</p>
+                                <p>Lieu : @fete.Lieu</p>
+                                <p>
+                                    Début : @fete.DebutFete
+                                    <br />
+                                    Fin : @fete.FinFete
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                }
             </div>
-        }
+            <div class="col-md p-4">
+                <h2>Les fêtes ques vous organisez</h2>
+                @foreach (Fete fete in UtilisateurCRUD.GetOrganisations(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
+                {
+                    <a href="Fete?fete=@fete.IdFete" class="text-decoration-none text-black">
+                        <div class="p-4 my-4 shadow rounded row">
+                            <div class="col-3 border-end p-2 align-self-center">
+                                <p>Organisateur : Vous</p>
+                                <img src="imgs/homme (1).png" alt="" class="w-50" />
+                            </div>
+                            <div class="col align-self-center px-4 py-1 text-start">
+                                <h3 class="text-left">@fete.Nom</h3>
+                                <p class="text-left">@fete.Description</p>
+                                <p>Lieu : @fete.Lieu</p>
+                                <p>
+                                    Début : @fete.DebutFete
+                                    <br />
+                                    Fin : @fete.FinFete
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+        
+    }
+    else{
+        <h1>Preparty</h1>
     }
 </div>

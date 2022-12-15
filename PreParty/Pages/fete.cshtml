@@ -5,79 +5,86 @@
 @{
     ViewData["Title"] = "Fête";
     <div class="row">
-        <div class="col-md">
-            <div class="p-4 my-3 shadow rounded">
-                <h1>@Model.Fete.Nom</h1>
-                <p>@Model.Fete.Description</p>
-                <p>Organisateur : @Model.Fete.Organisateur.Prenom @Model.Fete.Organisateur.Nom</p>
-            </div>
-            <div class="p-4 my-3 shadow rounded">
-                <h2>Date</h2>
-                <div class="row p-2">
-                    <div class="col border-end">
-                        <p class="display-4">Début</p>
-                        <p>@Model.Fete.DebutFete</p>
-                    </div>
-                    <div class="col">
-                        <p class="display-4">Fin</p>
-                        <p>@Model.Fete.FinFete</p>
-                    </div>
+            <div class="col-md">
+                <div class="p-4 my-3 shadow rounded">
+                    <h1>@Model.Fete.Nom</h1>
+                    <p>@Model.Fete.Description</p>
+                    <p>Organisateur : @Model.Fete.Organisateur.Prenom @Model.Fete.Organisateur.Nom</p>
                 </div>
-            </div>
-            <div class="p-4 my-3 shadow rounded">
-                <p>@Model.Fete.Lieu</p>
-                <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=5.061363279819489%2C47.32134510903253%2C5.063873827457428%2C47.322550582764045&amp;layer=mapnik&amp;marker=47.3219470%2C5.0629554"></iframe>
-
-            </div>
-        </div>
-
-        <div class="col-md">
-            <div class="p-4 my-3 shadow rounded">
-                <h2>
-                    Invités
-                    <a href="#">
-                        <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
-                    </a>
-                </h2>
-                <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
-                    @foreach (Utilisateur invite in Model.Fete.Invites)
-                    {
-                        <div class="row bg-light rounded my-2 p-2 invite align-items-center rounded">
-                            <div class="col"><img src="imgs/femme.png" width="60px" class=""/></div>
-                            <div class="col-5">@invite.Prenom @invite.Nom</div>
-                            <div class="col"><a href="#" class="btn btn-primary">Supprimer</a></div>
+                <div class="p-4 my-3 shadow rounded">
+                    <h2>Date</h2>
+                    <div class="row p-2">
+                        <div class="col border-end">
+                            <p class="display-4">Début</p>
+                            <p>@Model.Fete.DebutFete</p>
                         </div>
-                    }
-                </div>
-            </div>
-            <div class="p-4 my-3 shadow rounded">
-                <h2>Budget par personne</h2>
-                <p>17,5 €</p>
-                <a href="#" class="btn btn-primary">Voir les dépenses</a>
-                <a href="#" class="btn btn-primary">Modifier</a>
-            </div>
-        </div>
-
-
-
-
-        <div class="col-md">
-            <div class="p-4 my-3 shadow rounded">
-                <h2>Posts</h2>
-                <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
-                    @for (int i = 1; i < 4; i++)
-                    {
-                        <div class="bg-light rounded p-3 my-3">
-                            <h3>Post numéro @i</h3>
-                            <p>24/10/2022</p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
-                                Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
-                            </p>
+                        <div class="col">
+                            <p class="display-4">Fin</p>
+                            <p>@Model.Fete.FinFete</p>
                         </div>
-                    }
+                    </div>
+                </div>
+                <div class="p-4 my-3 shadow rounded">
+                    <p>@Model.Fete.Lieu</p>
+                    <iframe class="" src="https://www.openstreetmap.org/export/embed.html?bbox=5.061363279819489%2C47.32134510903253%2C5.063873827457428%2C47.322550582764045&amp;layer=mapnik&amp;marker=47.3219470%2C5.0629554"></iframe>
+
                 </div>
             </div>
-        </div>
+
+            <div class="col-md">
+                <div class="p-4 my-3 shadow rounded">
+                    <h2>
+                        Invités
+                        @if (Model.EstOrganisateur){
+                            <a href="#">
+                            <span class="material-symbols-outlined bg-success text-white rounded-circle">add</span>
+                        </a>
+                    }
+                    </h2>
+                    <div style="overflow : scroll; overflow-x: hidden; max-height: 300px">
+                        @foreach (Utilisateur invite in Model.Fete.Invites)
+                    {
+                            <div class="row bg-light rounded my-2 p-2 invite align-items-center rounded">
+                                <div class="col"><img src="imgs/femme.png" width="60px" class=""/></div>
+                                <div class="col-5 text-center">@invite.Prenom @invite.Nom</div>
+                                @if (Model.EstOrganisateur)
+                                {
+                                    <div class="col">
+                                        <a class="btn btn-primary" href="?fete=@Model.Fete.IdFete&removeInvite=@invite.IdUtilisateur">Supprimer</a>
+                                    </div>
+                                }
+                            </div>
+                    }
+                    </div>
+                </div>
+                <div class="p-4 my-3 shadow rounded">
+                    <h2>Budget par personne</h2>
+                    <p>17,5 €</p>
+                    <a href="#" class="btn btn-primary">Voir les dépenses</a>
+                    <a href="#" class="btn btn-primary">Modifier</a>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md">
+                <div class="p-4 my-3 shadow rounded">
+                    <h2>Posts</h2>
+                    <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
+                        @for (int i = 1; i < 4; i++)
+                    {
+                            <div class="bg-light rounded p-3 my-3">
+                                <h3>Post numéro @i</h3>
+                                <p>24/10/2022</p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae venenatis enim, ac auctor neque.
+                                    Curabitur non erat rhoncus, faucibus lectus non, varius urna. Phasellus tortor dui, dapibus sed nisl
+                                </p>
+                            </div>
+                    }
+                    </div>
+                </div>
+            </div>
     </div>
 }

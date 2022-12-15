@@ -67,6 +67,13 @@
             // Envoyer notification
         }
 
+        public void QuitterFete(int idInvite)
+        {
+            Invites.Remove(UtilisateurCRUD.GetById(idInvite));
+            FeteCRUD.RemoveInvite(IdFete, idInvite);
+            // Envoyer notification à l'organisateur 
+        }
+
         public override string ToString()
         {
             return $"{Nom}, {Description}, {Lieu}, {Invites.Count} invités";

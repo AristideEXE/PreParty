@@ -1,0 +1,80 @@
+﻿@page
+@model PreParty.Pages.EditionFeteModel
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Edition de la fête</h1>
+    <p>Modifiez les informations de la fête "@Model.Fete.Nom" si vous le souhaité</p>
+</div>
+
+<form method="post" name="CreationFeteForm">
+    <div class="row justify-content-center">
+        <!--Formulaire des informations principales de la fête : -->
+        <div class="col-md-10">
+                <div class="p-4 shadow rounded">
+                    <div class="form-group">
+                        <label for="inputNom">Nom de la fête :</label>
+                        <input type="text" class="form-control" name="_nom_fete" id="inputNom" value="@Model.Fete.Nom" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputAdresse">Ajouter une adresse</label>
+                            <input type="text" class="form-control" id="inputAdresse" name="_adresse" value="@Model.Fete.Lieu" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputGPS">Coordonnées GPS :</label>
+                            <input type="text" class="form-control" id="inputGPS" value="@Model.Fete.CoordonneesGPS" name="_gps">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputDateDebut">Date Début</label>
+                            <input type="datetime-local" class="form-control" id="inputDateDebut" min="@Model.DateAjd" value="@Model.DateDebut" required name="_dateDebut">
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="inputDateFin">Date de fin</label>
+                            <input type="datetime-local" class="form-control" id="inputDateFin" min="@Model.DateAjd" value="@Model.DateFin" required name="_dateFin">
+                            </div>
+                        </div>
+                 
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescritpion">Ajouter une descritpion : </label>
+                        <input type="text" class="form-control" id="inputDescritpion" placeholder="Entrez une description" value="@Model.Fete.Description" name="_description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPrix">Prix d'entrée: </label>
+                        <input type="number" class="form-control" id="inputPrix" aria-describedby="numberHelp" placeholder="Entrez un prix" value="@Model.Prix" min="0" required name="_prix">
+                        <small id="numberHelp" class="form-text text-muted">Prix en €.</small>
+                    </div>
+
+                    <br />
+
+                </div>
+                
+        </div>
+    </div>
+    </br>
+    </br>
+    <div class="row justify-content-center">
+        <div class="col-md-1">
+            <div class="form-group">
+                <button type="submit" class="btnStyleViolet"><span>Valider</span></button>
+            </div>
+        </div>
+    </div>
+</form>

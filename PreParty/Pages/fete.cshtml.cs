@@ -27,6 +27,13 @@ namespace PreParty.Pages
             }
         }
 
+        private string prix = "";
+
+        public string Prix
+        {
+            get { return prix; }
+        }
+
         public void OnLoad()
         {
             Console.WriteLine("test");
@@ -42,6 +49,7 @@ namespace PreParty.Pages
                     if (FeteManager.FeteExists(idFete))
                     {
                         this.fete = FeteManager.GetById(idFete);
+                        this.prix = this.fete.Prix.ToString();
                         // Je vérifie que la personne soit invitée à la fête ou qu'elle en soit l'organisateur
                         if (UtilisateurLogin.Instance.IsConnected)
                         {

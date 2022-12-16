@@ -59,21 +59,29 @@
         {
             Invites.Add(UtilisateurManager.GetById(idInvite));
             FeteManager.AddInvite(IdFete, idInvite);
-            // Envoyer notification
+
+            string notif = "Vous avez été invité à " + Nom;
+            string redirection = "/Fete?fete=" + IdFete;
+            UtilisateurManager.CreateNotification(notif, idInvite, redirection);
         }
 
         public void RemoveInvite(int idInvite)
         {
             Invites.Remove(UtilisateurManager.GetById(idInvite));
             FeteManager.RemoveInvite(IdFete, idInvite);
-            // Envoyer notification
+
+            string notif = "Vous avez été retiré de la liste des invités de " + Nom;
+            UtilisateurManager.CreateNotification(notif, idInvite);
         }
 
         public void QuitterFete(int idInvite)
         {
-            Invites.Remove(UtilisateurManager.GetById(idInvite));
+            Utilisateur invite = UtilisateurManager.GetById(idInvite);
+            Invites.Remove(invite);
             FeteManager.RemoveInvite(IdFete, idInvite);
-            // Envoyer notification à l'organisateur 
+
+            string notif = invite.Prenom + " " + invite.Nom + " a quitté " + Nom;
+            UtilisateurManager.CreateNotification(notif, Organisateur.IdUtilisateur);
         }
 
         public override string ToString()

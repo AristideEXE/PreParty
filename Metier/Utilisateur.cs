@@ -42,9 +42,7 @@ namespace Metier
         {
             set
             {
-        
                 Hash = GetHashString(value);
-           
             }
         }
 

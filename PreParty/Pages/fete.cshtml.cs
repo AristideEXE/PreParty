@@ -117,11 +117,13 @@ namespace PreParty.Pages
             if (Request.Form.ContainsKey("submitAddPost"))
             {
                 int idFete = int.Parse(HttpContext.Request.Query["fete"]);
+                this.fete = FeteManager.GetById(idFete);
+
                 string titre = Request.Form["titre"];
                 string contenu = Request.Form["contenu"];
-
                 Post post = new Post(titre, contenu);
-                FeteManager.CreatePostWithoutId(post, idFete);
+                this.fete.AjouterPoste(post);
+
                 Response.Redirect("Fete?fete=" + idFete);
             }
             // Si on rajoute un invité
@@ -131,6 +133,17 @@ namespace PreParty.Pages
                 searchInvites = UtilisateurManager.Recherche(recherche);
                 int idFete = int.Parse(HttpContext.Request.Query["fete"]);
                 this.fete = FeteManager.GetById(idFete);
+            }
+            // Si on supprime la fête
+            if (Request.Form.ContainsKey("submitDeleteParty"))
+            {
+                foreach(Utilisateur invite in FeteManager.GetInvites(fete.IdFete))
+                {
+                    Console.WriteLine(invite.ToString());
+                    this.fete.RemoveInvite(invite.IdUtilisateur);
+                }
+                FeteManager.Delete(fete.IdFete);
+                Response.Redirect("Index");
             }
         }
     }

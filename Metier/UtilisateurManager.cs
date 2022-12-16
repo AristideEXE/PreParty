@@ -219,7 +219,7 @@ namespace Metier
             List<Fete> fetes = new List<Fete>();
             try
             {
-                string query = "SELECT idFete FROM invites WHERE idUtilisateur = @idUtilisateur";
+                string query = "SELECT idFete, debutFete     FROM invites NATURAL JOIN fete WHERE idUtilisateur = @idUtilisateur ORDER BY debutFete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
@@ -250,7 +250,7 @@ namespace Metier
             List<Fete> fetes = new List<Fete>();
             try
             {
-                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete WHERE organisateur=@idUtilisateur";
+                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete WHERE organisateur=@idUtilisateur ORDER BY debutFete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
@@ -434,6 +434,88 @@ namespace Metier
                 Console.WriteLine("Une erreur est survenue : " + e);
             }
             return utilisateurs;
+        }
+
+
+        /// <summary>
+        /// Créer une notification non lu pour l'utilisateur
+        /// </summary>
+        /// <param name="notification">L'utilisateur concerné</param>
+        /// <param name="idUtilisateur">L'identifiant de l'utilisateur</param>
+        public static void CreateNotification(string notification, int idUtilisateur, string? redirection = null)
+        {
+            try
+            {
+                string query = "INSERT INTO notification (idUtilisateur, notif, lu, redirection) VALUES (@idUtilisateur, @notif, 0, @redirection)";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+                    cmd.Parameters.AddWithValue("@notif", notification);
+                    cmd.Parameters.AddWithValue("@redirection", redirection);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
+
+        public static List<Notification> GetAllNotifications (int idUtilisateur)
+        {
+            List<Notification> notifications = new List<Notification>();
+            try
+            {
+                string query = "SELECT idNotification, notif, lu, redirection FROM notification WHERE idUtilisateur = @idUtilisateur ORDER BY idNotification DESC";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idNotification = reader.GetInt32(0);
+                            string notif = reader.GetString(1);
+                            bool lu = reader.GetBoolean(2);
+                            string redirection = null;
+                            if (!reader.IsDBNull(3))
+                            {
+                                redirection = reader.GetString(3);
+                            }
+
+                            Notification notification = new Notification(notif, lu, redirection);
+                            notifications.Add(notification);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return notifications;
+        }
+
+        public static void ReadAllNotifications(int idUtilisateur)
+        {
+            string query = "UPDATE notification SET lu=1 WHERE idUtilisateur = @idUtilisateur";
+            using (MySqlConnection conn = Connexion.GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

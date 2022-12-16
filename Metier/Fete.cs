@@ -59,21 +59,46 @@
         {
             Invites.Add(UtilisateurManager.GetById(idInvite));
             FeteManager.AddInvite(IdFete, idInvite);
-            // Envoyer notification
+
+            // Notification
+            string notif = "Vous avez été invité à " + Nom;
+            string redirection = "/Fete?fete=" + IdFete;
+            UtilisateurManager.CreateNotification(notif, idInvite, redirection);
         }
 
         public void RemoveInvite(int idInvite)
         {
             Invites.Remove(UtilisateurManager.GetById(idInvite));
             FeteManager.RemoveInvite(IdFete, idInvite);
-            // Envoyer notification
+            
+            // Notification
+            string notif = "Vous avez été retiré de la liste des invités de " + Nom;
+            UtilisateurManager.CreateNotification(notif, idInvite);
         }
 
         public void QuitterFete(int idInvite)
         {
-            Invites.Remove(UtilisateurManager.GetById(idInvite));
+            Utilisateur invite = UtilisateurManager.GetById(idInvite);
+            Invites.Remove(invite);
             FeteManager.RemoveInvite(IdFete, idInvite);
-            // Envoyer notification à l'organisateur 
+
+            // Notification
+            string notif = invite.Prenom + " " + invite.Nom + " a quitté " + Nom;
+            UtilisateurManager.CreateNotification(notif, Organisateur.IdUtilisateur);
+        }
+
+        public void AjouterPoste(Post post)
+        {
+            Posts.Add(post);
+            FeteManager.CreatePostWithoutId(post, IdFete);
+
+            // Notifications à tous les invités
+            string notif = "Un post a été ajouté à " + Nom;
+            string redirection = "/Fete?fete=" + IdFete;
+            foreach (Utilisateur invite in Invites)
+            {
+                UtilisateurManager.CreateNotification(notif, invite.IdUtilisateur, redirection);
+            }
         }
 
         public override string ToString()

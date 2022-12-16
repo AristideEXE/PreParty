@@ -1,10 +1,21 @@
 ﻿@page
 @model PreParty.Pages.CalendrierModel
 @using Metier;
+
 @{
+    ViewData["Title"] = "Calendrier";
     <div class="container-fluid">
       <header>
         <h4 class="display-4 mb-4 text-center">Fêtes de @Model.MoisE  @Model.Annee</h4>
+            <div class="btn-group d-flex justify-content-center p-2" role="group">
+                    <form method="post" name="formReculer">
+                    <input type="submit" class="btn btn-primary mx-2 " value="Reculer" name="submitReculer" />
+                    </form>
+                    <form method="post" name="formAvancer">
+                        <input type="submit" class="btn btn-primary mx-2 " value="Avancer" name="submitAvancer" />
+                    </form>
+            </div>
+
         <div class="row d-none d-sm-flex p-1 bg-dark text-white">
           <h5 class="col-sm p-1 text-center">Lundi</h5>
           <h5 class="col-sm p-1 text-center">Mardi</h5>
@@ -15,7 +26,6 @@
           <h5 class="col-sm p-1 text-center">Dimanche</h5>
         </div>
       </header>
-
 
         <div class="row border border-right-0 border-bottom-0">
 
@@ -32,8 +42,8 @@
                             <p class="d-sm-none">No events</p>
                         </div>
                 }
-                else if ((i >= Model.JourStart - 1) && (i - Model.JourStart + 1< Model.MoisListe[Model.Mois - 1])){
-                    if(i%6 == 0){
+                else if ((i >= Model.JourStart - 1) && (i - Model.JourStart + 1< Model.MoisListe[(((Model.Mois - 1)%12)+12)%12])){
+                    if(i%7 == 0){
                                 <div class="w-100"></div>
                             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate">
                                     <h5 class="row align-items-center">
@@ -41,16 +51,17 @@
                                         <span class="col-1"></span>
                                         <small class="col d-sm-none text-center text-muted">@Model.JJJJ1[i%7]</small>
                                     </h5>
-                                    @foreach(KeyValuePair<List<DateTime>,string> k in Model.FeteschargesO){
+                            @foreach (KeyValuePair<List<DateTime>, List<string>> k in Model.FeteschargesO)
+                            {
                                     if(Model.estDans(k.Key[0],k.Key[1],new DateTime(Int32.Parse(Model.Annee),Model.Mois,i - Model.JourStart + 2))){
-                                            <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-info text-white" title="Test Event 1">@k.Value</a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 text-decoration-none rounded text-truncate small bg-info text-white" href="Fete?fete=@k.Value[1]">@k.Value[0]</a>
                                         }
                                     }
-                                    @foreach (KeyValuePair<List<DateTime>, string> k in Model.FeteschargesI)
+                            @foreach (KeyValuePair<List<DateTime>, List<string>> k in Model.FeteschargesI)
                                     {
                                         if (Model.estDans(k.Key[0], k.Key[1], new DateTime(Int32.Parse(Model.Annee), Model.Mois, i - Model.JourStart + 2)))
                                         {
-                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white">@k.Value</a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 text-decoration-none rounded text-truncate small bg-success text-white" href="Fete?fete=@k.Value[1]">@k.Value[0]</a>
                                         }
                                     }
                                     
@@ -64,19 +75,19 @@
                                     <span class="col-1"></span>
                                     <small class="col d-sm-none text-center text-muted">@Model.JJJJ1[i%7]</small>
                                 </h5>
-                                @foreach (KeyValuePair<List<DateTime>, string> k in Model.FeteschargesO)
+                            @foreach (KeyValuePair<List<DateTime>, List<string>> k in Model.FeteschargesO)
                             {
                                 if (Model.estDans(k.Key[0], k.Key[1], new DateTime(Int32.Parse(Model.Annee), Model.Mois, i - Model.JourStart + 2)))
                                 {
-                                        <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-info text-white" title="Test Event 1">@k.Value</a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 text-decoration-none rounded text-truncate small bg-info text-white" href="Fete?fete=@k.Value[1]">@k.Value[0]</a>
                                 }
                             }
 
-                            @foreach (KeyValuePair<List<DateTime>, string> k in Model.FeteschargesI)
+                            @foreach (KeyValuePair<List<DateTime>, List<string>> k in Model.FeteschargesI)
                             {
                                 if (Model.estDans(k.Key[0], k.Key[1], new DateTime(Int32.Parse(Model.Annee), Model.Mois, i - Model.JourStart + 2)))
                                 {
-                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-danger text-white">@k.Value</a>
+                                    <a class="event d-block p-1 pl-2 pr-2 mb-1 text-decoration-none rounded text-truncate small bg-success text-white" href="Fete?fete=@k.Value[1]">@k.Value[0]</a>
                                 }
                             }
 
@@ -85,12 +96,12 @@
 
                 }
                 else{
-                    if (i % 6 == 0)
+                    if (i % 7 == 0)
                     {
                             <div class="w-100"></div>
                             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
                                 <h5 class="row align-items-center">
-                                    <span class="date col-1">@Model.Jours[i - Model.MoisListe[Model.Mois - 1] - Model.JourStart + 1]</span>
+                                <span class="date col-1">@Model.Jours[i - Model.MoisListe[(((Model.Mois - 1)%12)+12)%12] - Model.JourStart + 1]</span>
                                     <span class="col-1"></span>
                                     <small class="col d-sm-none text-center text-muted">@Model.JJJJ1[i%7]</small>
                                 </h5>
@@ -102,7 +113,7 @@
                     {
                             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate d-none d-sm-inline-block bg-light text-muted">
                                 <h5 class="row align-items-center">
-                                    <span class="date col-1">@Model.Jours[i - Model.MoisListe[Model.Mois - 1] - Model.JourStart + 1]</span>
+                                <span class="date col-1">@Model.Jours[i - Model.MoisListe[(((Model.Mois - 1)%12)+12)%12] - Model.JourStart + 1]</span>
                                     <span class="col-1"></span>
                                     <small class="col d-sm-none text-center text-muted">@Model.JJJJ1[i%7]</small>
                                 </h5>
@@ -116,5 +127,16 @@
 
         </div>
 
+
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <div class="p-4 my-3 shadow rounded">
+
+                <input type="button" class="btn btn-info " value="Fêtes que vous organisez" name="">
+                <input type="button" class="btn btn-success " value="Fêtes auxquelles vous êtes invité" name="">
+            </div>
+        </div>
     </div>
 }

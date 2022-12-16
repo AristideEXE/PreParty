@@ -62,6 +62,10 @@ namespace PreParty.Pages
 
         public string MoisE => moisE;
 
+        private int jourA;
+
+        public int JourA => jourA; 
+
         public void OnLoad()
         {
             Console.WriteLine("test");
@@ -82,6 +86,7 @@ namespace PreParty.Pages
             this.mois = dateAjd.Month;
             this.moisE = dateAjd.ToString("MMMM");
             this.annee = dateAjd.ToString("yyyy");
+            this.jourA = dateAjd.Day;
             fetes = FeteManager.ReadAll();
             chargeFete();
             if (DateTime.IsLeapYear(Int32.Parse(annee)))

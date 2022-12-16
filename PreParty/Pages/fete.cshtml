@@ -144,11 +144,11 @@
                 else{
                     <div style="overflow : scroll; overflow-x: hidden; max-height: 700px">
 
-                        @foreach (Post post in Model.Fete.Posts){
+                        @for(int i = Model.Fete.Posts.Count -1 ; i >= 0; i -- ){
                         <div class="bg-light rounded p-3 my-3">
-                            <h3>@post.Titre</h3>
-                            <p>@post.DatePost</p>
-                            <p>@post.Contenu</p>
+                                <h3>@Model.Fete.Posts[i].Titre</h3>
+                                <p>@Model.Fete.Posts[i].DatePost</p>
+                                <p>@Model.Fete.Posts[i].Contenu</p>
                         </div>
                         }
                     </div>

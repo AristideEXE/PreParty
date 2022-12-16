@@ -8,9 +8,9 @@ namespace PreParty.Pages
 {
     public class CalendrierModel : PageModel
     {
-        private string dateAjd = "";
+        private DateTime dateAjd ;
 
-        public string DateAjd => dateAjd;
+        public DateTime DateAjd => dateAjd;
 
         private int mois = 0;
         public int Mois => mois;
@@ -25,8 +25,8 @@ namespace PreParty.Pages
 
         public List<int> MoisListe => moisListe;
 
-        private Dictionary<string, int> jjjj = new Dictionary<string, int>() { { "lundi", 1 },
-            { "mardi", 2 },{"mercredi",3 },{"jeudi",4 },{"vendredi",5 },{"samedi",6 },{"dimanche",7 } };
+        private Dictionary<string, int> jjjj = new Dictionary<string, int>() { { "Monday", 1 },
+            { "Tuesday", 2 },{"Wednesday",3 },{"Thursday",4 },{"Friday",5 },{"Saturday",6 },{"Sunday",7 } };
 
         private List<string> jjjj1 = new List<string>() { "lundi" , "mardi", "mercredi" ,
         "jeudi","vendredi","samedi","dimanche"};
@@ -40,13 +40,13 @@ namespace PreParty.Pages
 
         private List<Fete> fetes = new List<Fete>();
 
-        private Dictionary<List<DateTime>, string> feteschargesI = new Dictionary<List<DateTime>, string>();
+        private Dictionary<List<DateTime>, List<string>> feteschargesI = new Dictionary<List<DateTime>, List<string>>();
 
-        public Dictionary<List<DateTime>, string> FeteschargesI => feteschargesI;
+        public Dictionary<List<DateTime>, List<string>> FeteschargesI => feteschargesI;
 
-        private Dictionary<List<DateTime>, string> feteschargesO = new Dictionary<List<DateTime>, string>();
+        private Dictionary<List<DateTime>, List<string>> feteschargesO = new Dictionary<List<DateTime>, List<string>>();
 
-        public Dictionary<List<DateTime>, string> FeteschargesO => feteschargesO;
+        public Dictionary<List<DateTime>, List<string>> FeteschargesO => feteschargesO;
 
         public List<Fete> Fetes => fetes; 
 
@@ -62,21 +62,34 @@ namespace PreParty.Pages
 
         public string MoisE => moisE;
 
-        
+        public void OnLoad()
+        {
+            Console.WriteLine("test");
+        }
 
         public void OnGet()
         {
-            this.dateAjd = DateTime.Now.ToString("dd/mm/yyyy");
-            this.mois = Int32.Parse(DateTime.Now.ToString("MM"));
-            this.moisE = DateTime.Now.ToString("MMMM");
-            this.annee = DateTime.Now.ToString("yyyy");
+            if (HttpContext.Request.Query.ContainsKey("date"))
+            {
+                string brut = HttpContext.Request.Query["date"].ToString();
+                this.dateAjd = DateTime.Parse(brut).Date;
+            }
+            else
+            {
+                this.dateAjd = DateTime.Now;
+            }
+               
+            this.mois = dateAjd.Month;
+            this.moisE = dateAjd.ToString("MMMM");
+            this.annee = dateAjd.ToString("yyyy");
             fetes = FeteManager.ReadAll();
             chargeFete();
             if (DateTime.IsLeapYear(Int32.Parse(annee)))
             {
                 moisListe[1] = 29;
             }
-            this.jourStart = jjjj[jjjj1[jjjj[DateTime.Now.ToString("dddd")]-((Int32.Parse(DateTime.Now.ToString("dd")) % 7) - 1)-1]] ;
+            DateTime datepremier = new DateTime(dateAjd.Year, dateAjd.Month, 1);
+            this.jourStart = jjjj[datepremier.DayOfWeek.ToString()] ;
             this.jourFin = jourStart + mois - 1; 
             for(int i = 0; i < jourStart - 1; i++)
             {
@@ -93,12 +106,12 @@ namespace PreParty.Pages
                 if(fete.Organisateur.IdUtilisateur.Equals(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur))
                 {
                     List<DateTime> list = new List<DateTime>() { fete.DebutFete.Date , fete.FinFete.Date };
-                    feteschargesO.Add(list, fete.Nom);
+                    feteschargesO.Add(list,new List<string>(){ fete.Nom,fete.IdFete.ToString()});
                 }
                 else if (fete.Invites.Contains(UtilisateurLogin.Instance.GetUtilisateur()))
                 {
                     List<DateTime> list = new List<DateTime>() { fete.DebutFete.Date, fete.FinFete.Date };
-                    feteschargesI.Add(list, fete.Nom);
+                    feteschargesI.Add(list, new List<string>() { fete.Nom, fete.IdFete.ToString() });
                 }
 
             }
@@ -112,6 +125,45 @@ namespace PreParty.Pages
             }
             return false;
              
+        }
+
+
+        public void OnPost()
+        {
+            if (Request.Form.ContainsKey("submitAvancer"))
+            {
+                DateTime add1;
+                if (HttpContext.Request.Query.ContainsKey("date"))
+                {
+                    string brut = HttpContext.Request.Query["date"].ToString();
+                    add1 = DateTime.Parse(brut).Date;
+                    add1 = add1.AddMonths(1);
+                }
+                else {
+                    add1 = DateTime.Now.Date;
+                    add1 = add1.AddMonths(1);
+                }
+                string add = add1.ToString("yyyy/MM/dd");
+                Response.Redirect("Calendrier?date=" + add);
+            }
+            if (Request.Form.ContainsKey("submitReculer"))
+            {
+                DateTime add1;
+                if (HttpContext.Request.Query.ContainsKey("date"))
+                {
+                    string brut = HttpContext.Request.Query["date"].ToString();
+                    add1 = DateTime.Parse(brut).Date;
+                    add1 = add1.AddMonths(-1);
+                }
+                else
+                {
+                    add1 = DateTime.Now.Date;
+                    add1 = add1.AddMonths(-1);
+                }
+                string add = add1.ToString("yyyy/MM/dd");
+                Response.Redirect("Calendrier?date=" + add);
+            }
+
         }
     }
 }

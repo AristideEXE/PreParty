@@ -61,7 +61,7 @@
             FeteManager.AddInvite(IdFete, idInvite);
 
             string notif = "Vous avez été invité à " + Nom;
-            string redirection = "Fete?fete=" + IdFete;
+            string redirection = "/Fete?fete=" + IdFete;
             UtilisateurManager.CreateNotification(notif, idInvite, redirection);
         }
 
@@ -70,7 +70,7 @@
             Invites.Remove(UtilisateurManager.GetById(idInvite));
             FeteManager.RemoveInvite(IdFete, idInvite);
 
-            string notif = "Vous avez retiré de la liste des invités de " + Nom;
+            string notif = "Vous avez été retiré de la liste des invités de " + Nom;
             UtilisateurManager.CreateNotification(notif, idInvite);
         }
 

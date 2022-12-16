@@ -1,0 +1,20 @@
+﻿@page
+@using Metier;
+@model PreParty.Pages.NotificationsModel
+@{
+    <div class="text-center">
+        <h1 class="display-4 p-4">Notifications</h1>
+        @if (Model.Notifications.Count == 0){
+            <p>Aucune notification pour le moment</p>
+        }
+        else{
+            foreach (Notification notification in Model.Notifications){
+                    <a href="@notification.Redirection" class="text-decoration-none text-black">
+                        <div class="p-4 my-3 shadow rounded">
+                            <p>@notification.Notif</p>
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+}

@@ -41,6 +41,14 @@ create table post(
 	foreign key (idFete) references fete(idFete)
 );
 
+create table notification(
+	idNotification int primary key auto_increment,
+	idUtilisateur int,
+	notification varchar(255),
+	lu int,
+	foreign key (idUtilisateur) references utilisateur(idUtilisateur)
+);
+
 
 CREATE TABLE Depense(
    idDepense int,

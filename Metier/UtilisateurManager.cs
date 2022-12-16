@@ -504,6 +504,46 @@ namespace Metier
             return notifications;
         }
 
+        public static List<Notification> GetNotificationsPasLus(int idUtilisateur)
+        {
+            List<Notification> notifications = new List<Notification>();
+            try
+            {
+                string query = "SELECT idNotification, notif, lu, redirection FROM notification WHERE idUtilisateur = @idUtilisateur AND lu = 0 ORDER BY idNotification DESC";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+
+                    using (DbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int idNotification = reader.GetInt32(0);
+                            string notif = reader.GetString(1);
+                            bool lu = reader.GetBoolean(2);
+                            string redirection = null;
+                            if (!reader.IsDBNull(3))
+                            {
+                                redirection = reader.GetString(3);
+                            }
+
+                            Notification notification = new Notification(notif, lu, redirection);
+                            notifications.Add(notification);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+            return notifications;
+        }
+
+
         public static void ReadAllNotifications(int idUtilisateur)
         {
             string query = "UPDATE notification SET lu=1 WHERE idUtilisateur = @idUtilisateur";

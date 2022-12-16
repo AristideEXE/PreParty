@@ -38,8 +38,8 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Calendrier"><img src="~/imgs/calendar.png" height="50" width="50" /></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Notifications"><img src="~/imgs/notif.png" height="50" width="50" /></a>
+                            <li class="nav-item notifs">
+                                <a style="transform: translateY(10px)" class="nav-link" asp-area="" asp-page="/Notifications">@UtilisateurManager.GetNotificationsPasLus(UtilisateurLogin.Instance.GetUtilisateur().IdUtilisateur).Count</a>
                             </li>
 
                             <li class="nav-item dropdown">

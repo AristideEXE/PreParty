@@ -61,7 +61,8 @@
             FeteManager.AddInvite(IdFete, idInvite);
 
             string notif = "Vous avez été invité à " + Nom;
-            UtilisateurManager.CreateNotification(notif, idInvite);
+            string redirection = "Fete?fete=" + IdFete;
+            UtilisateurManager.CreateNotification(notif, idInvite, redirection);
         }
 
         public void RemoveInvite(int idInvite)

@@ -46,6 +46,7 @@ create table notification(
 	idUtilisateur int,
 	notif varchar(255),
 	lu int,
+	redirection varchar(255),
 	foreign key (idUtilisateur) references utilisateur(idUtilisateur)
 );
 

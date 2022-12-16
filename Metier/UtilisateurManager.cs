@@ -442,11 +442,11 @@ namespace Metier
         /// </summary>
         /// <param name="notification">L'utilisateur concerné</param>
         /// <param name="idUtilisateur">L'identifiant de l'utilisateur</param>
-        public static void CreateNotification(string notification, int idUtilisateur)
+        public static void CreateNotification(string notification, int idUtilisateur, string? redirection = null)
         {
             try
             {
-                string query = "INSERT INTO notification (idUtilisateur, notif, lu) VALUES (@idUtilisateur, @notif, 0)";
+                string query = "INSERT INTO notification (idUtilisateur, notif, lu, redirection) VALUES (@idUtilisateur, @notif, 0, @redirection)";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
@@ -454,6 +454,7 @@ namespace Metier
                     cmd.CommandText = query;
                     cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
                     cmd.Parameters.AddWithValue("@notif", notification);
+                    cmd.Parameters.AddWithValue("@redirection", redirection);
 
                     cmd.ExecuteNonQuery();
                 }

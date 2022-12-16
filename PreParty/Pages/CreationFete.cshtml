@@ -15,14 +15,14 @@
         <div class="col-md-10">
                 <div class="p-4 shadow rounded">
                     <div class="form-group">
-                        <label for="inputNom">Nom de la fête :</label>
+                        <label for="inputNom"><span class="rouge">*</span>Nom de la fête :</label>
                         <input type="text" class="form-control" name="_nom_fete" id="inputNom" placeholder="Entrez un nom" required>
                     </div>
 
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <label for="inputAdresse">Ajouter une adresse</label>
+                                <label for="inputAdresse"><span class="rouge">*</span>Ajouter une adresse</label>
                                 <input type="text" class="form-control" id="inputAdresse" name="_adresse" placeholder="Adresse" required>
                             </div>
                         </div>
@@ -38,14 +38,14 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <label for="inputDateDebut">Date Début</label>
+                                <label for="inputDateDebut"><span class="rouge">*</span>Date Début</label>
                                 <input type="datetime-local" min="@Model.DateAjd" class="form-control" id="inputDateDebut" required name="_dateDebut">
                             </div>
                         </div>
 
                         <div class="col-md">
                             <div class="form-group">
-                                <label for="inputDateFin">Date de fin</label>
+                                <label for="inputDateFin"><span class="rouge">*</span>Date de fin</label>
                                 <input type="datetime-local" class="form-control" min="@Model.DateAjd" id="inputDateFin" required name="_dateFin">
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="inputPrix">Prix d'entrée: </label>
+                        <label for="inputPrix"><span class="rouge">*</span>Prix d'entrée: </label>
                         <input type="number" class="form-control" id="inputPrix" aria-describedby="numberHelp" placeholder="Entrez un prix" min="0" required name="_prix">
                         <small id="numberHelp" class="form-text text-muted">Prix en €.</small>
                     </div>
@@ -80,5 +80,13 @@
         </div>
     </div>
     </form>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-md">
+            <p class="champsObligatoires">
+                * Champs obligatoires :
+            </p>
+        </div>
+    </div>
 </div>
 

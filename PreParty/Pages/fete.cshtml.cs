@@ -137,12 +137,12 @@ namespace PreParty.Pages
             // Si on supprime la fête
             if (Request.Form.ContainsKey("submitDeleteParty"))
             {
-                foreach(Utilisateur invite in FeteManager.GetInvites(fete.IdFete))
+                foreach(Utilisateur invite in FeteManager.GetInvites(int.Parse(HttpContext.Request.Query["fete"])))
                 {
                     Console.WriteLine(invite.ToString());
-                    this.fete.RemoveInvite(invite.IdUtilisateur);
+                    FeteManager.RemoveInvite(int.Parse(HttpContext.Request.Query["fete"]),invite.IdUtilisateur);
                 }
-                FeteManager.Delete(fete.IdFete);
+                FeteManager.Delete(int.Parse(HttpContext.Request.Query["fete"]));
                 Response.Redirect("Index");
             }
         }

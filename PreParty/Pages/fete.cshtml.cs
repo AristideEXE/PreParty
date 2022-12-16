@@ -117,11 +117,13 @@ namespace PreParty.Pages
             if (Request.Form.ContainsKey("submitAddPost"))
             {
                 int idFete = int.Parse(HttpContext.Request.Query["fete"]);
+                this.fete = FeteManager.GetById(idFete);
+
                 string titre = Request.Form["titre"];
                 string contenu = Request.Form["contenu"];
-
                 Post post = new Post(titre, contenu);
-                FeteManager.CreatePostWithoutId(post, idFete);
+                this.fete.AjouterPoste(post);
+
                 Response.Redirect("Fete?fete=" + idFete);
             }
             // Si on rajoute un invité

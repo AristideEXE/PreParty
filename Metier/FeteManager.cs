@@ -254,7 +254,7 @@ namespace Metier
             List<Post> posts = new List<Post>();
             try
             {
-                string query = "SELECT idPost, titre, datePost, contenu FROM post WHERE idFete = @idFete";
+                string query = "SELECT idPost, titre, datePost, contenu FROM post WHERE idFete = @idFete ORDER BY idPost DESC";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();

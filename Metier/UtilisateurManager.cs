@@ -435,5 +435,33 @@ namespace Metier
             }
             return utilisateurs;
         }
+
+
+        /// <summary>
+        /// Créer une notification non lu pour l'utilisateur
+        /// </summary>
+        /// <param name="notification">L'utilisateur concerné</param>
+        /// <param name="idUtilisateur">L'identifiant de l'utilisateur</param>
+        public static void CreateNotification(string notification, int idUtilisateur)
+        {
+            try
+            {
+                string query = "INSERT INTO notification (idUtilisateur, notif, lu) VALUES (@idUtilisateur, @notif, 0)";
+                using (MySqlConnection conn = Connexion.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("@idUtilisateur", idUtilisateur);
+                    cmd.Parameters.AddWithValue("@notif", notification);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Une erreur est survenue : " + e);
+            }
+        }
     }
 }

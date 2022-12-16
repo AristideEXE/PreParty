@@ -44,7 +44,7 @@ create table post(
 create table notification(
 	idNotification int primary key auto_increment,
 	idUtilisateur int,
-	notification varchar(255),
+	notif varchar(255),
 	lu int,
 	foreign key (idUtilisateur) references utilisateur(idUtilisateur)
 );

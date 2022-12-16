@@ -53,7 +53,7 @@ namespace Metier
             List<Fete> fetes = new List<Fete>();
             try
             {
-                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix FROM fete";
+                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete, prix FROM fete ORDER BY debutFete DESC";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();

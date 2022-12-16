@@ -219,7 +219,7 @@ namespace Metier
             List<Fete> fetes = new List<Fete>();
             try
             {
-                string query = "SELECT idFete FROM invites WHERE idUtilisateur = @idUtilisateur";
+                string query = "SELECT idFete, debutFete     FROM invites NATURAL JOIN fete WHERE idUtilisateur = @idUtilisateur ORDER BY debutFete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();
@@ -250,7 +250,7 @@ namespace Metier
             List<Fete> fetes = new List<Fete>();
             try
             {
-                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete WHERE organisateur=@idUtilisateur";
+                string query = "SELECT idFete, organisateur, nom, description, lieu, coordonneesGPS, debutFete, finFete FROM fete WHERE organisateur=@idUtilisateur ORDER BY debutFete";
                 using (MySqlConnection conn = Connexion.GetConnection())
                 {
                     conn.Open();

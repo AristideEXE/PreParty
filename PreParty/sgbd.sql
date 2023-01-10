@@ -50,16 +50,6 @@ create table notification(
 	foreign key (idUtilisateur) references utilisateur(idUtilisateur)
 );
 
-
-CREATE TABLE Depense(
-   idDepense int,
-   nomDepense varchar(50),
-   prix decimal(15,2),
-   idFete int NOT NULL,
-   PRIMARY KEY(idDepense),
-   FOREIGN KEY(idFete) REFERENCES fete(idFete)
-);
-
 INSERT INTO utilisateur VALUES (1,'Proriol', 'Aristide', '2004-11-19', 'aristidepr@gmail.com', 'EF797C8118F02DFB649607DD5D3F8C7623048C9C063D532CC95C5ED7A898A64F'),
 (2, 'Maitrot', 'Teo', '2002-03-14', 'teomaitr21@gmail.com', 'EF797C8118F02DFB649607DD5D3F8C7623048C9C063D532CC95C5ED7A898A64F'),
 (3, 'Robinet', 'Simon', '2003-09-27', 'simonrobinet@gmail.com', 'EF797C8118F02DFB649607DD5D3F8C7623048C9C063D532CC95C5ED7A898A64F'),
